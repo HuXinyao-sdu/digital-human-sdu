@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  # 前端服务
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: shida-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - shida-network
+
+  # 后端服务
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: shida-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG=false
+      - CORS_ORIGINS=http://localhost:8080,http://localhost:5173
+      - RAG_API_URL=${RAG_API_URL:-}
+      - RAG_API_KEY=${RAG_API_KEY:-}
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
+    networks:
+      - shida-network
+    # GPU透传（如果后端需要跑本地TTS/AI模型时取消注释）
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+networks:
+  shida-network:
+    driver: bridge

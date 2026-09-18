@@ -1,0 +1,16 @@
+**/.git
+**/.gitignore
+**/.gitattributes
+**/node_modules
+**/dist
+**/__pycache__
+**/*.pyc
+**/.env
+**/.env.local
+**/.idea
+**/.vscode
+**/*.log
+**/README.md
+**/docs
+**/ai
+**/data
