@@ -7,7 +7,7 @@
       <div class="avatar-section">
         <div class="avatar-placeholder">
           <div class="avatar-circle">
-            <span class="avatar-emoji">🎓</span>
+            <span class="avatar-emoji">小山</span>
           </div>
           <p class="avatar-name">小山 · 校史讲解员</p>
           <p class="avatar-status" :class="{ speaking: isSpeaking }">
@@ -15,7 +15,8 @@
           </p>
         </div>
         <div class="video-area">
-          <p class="video-hint">数字人视频区域（接入3D模型/AI视频后替换）</p>
+          <AvatarViewer ref="avatarViewer" @loaded="avatarReady = true" @error="avatarReady = false" />
+          <p v-if="!avatarReady" class="video-hint">正在准备数字人讲解员…</p>
         </div>
       </div>
 
@@ -79,7 +80,8 @@
 
 <script setup>
 import { ref, nextTick } from 'vue'
-import { chat } from '@/api'
+import { chat, textToSpeech } from '@/api'
+import AvatarViewer from '@/components/AvatarViewer.vue'
 
 const topics = [
   { id: 1, era: '1901', name: '山东大学堂创办' },
@@ -96,6 +98,9 @@ const messages = ref([])
 const inputText = ref('')
 const loading = ref(false)
 const chatContainer = ref(null)
+const avatarReady = ref(false)
+const avatarViewer = ref(null)
+let audioPlayer = null
 
 const selectTopic = (topic) => {
   activeTopic.value = topic.id
@@ -114,12 +119,40 @@ const sendMessage = async () => {
 
   try {
     const res = await chat({ question: text })
-    messages.value.push({ role: 'bot', content: res.answer || '抱歉，我暂时无法回答这个问题。' })
+    const answer = res.answer || '抱歉，我暂时无法回答这个问题。'
+    messages.value.push({ role: 'bot', content: answer })
+    await speakAnswer(answer)
   } catch (e) {
     messages.value.push({ role: 'bot', content: '（后端未连接，这是模拟回复）关于这个问题，我正在学习中，敬请期待！' })
   } finally {
     loading.value = false
     await scrollToBottom()
+  }
+}
+
+const speakAnswer = async (text) => {
+  try {
+    const speech = await textToSpeech({ text })
+
+    audioPlayer?.pause()
+    avatarViewer.value?.stopLipSync()
+
+    audioPlayer = new Audio(speech.audio_url)
+    audioPlayer.addEventListener('play', () => { isSpeaking.value = true })
+    audioPlayer.addEventListener('ended', () => {
+      isSpeaking.value = false
+      avatarViewer.value?.stopLipSync()
+    })
+    audioPlayer.addEventListener('error', () => {
+      isSpeaking.value = false
+      avatarViewer.value?.stopLipSync()
+    })
+
+    await avatarViewer.value?.startLipSync(audioPlayer)
+    await audioPlayer.play()
+  } catch (error) {
+    // TTS 未配置或暂时不可用时，保留文字回答，不影响问答流程。
+    console.info('TTS unavailable:', error.message)
   }
 }
 
@@ -151,17 +184,27 @@ const scrollToBottom = () => {
   margin: 0 auto 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
-.avatar-emoji { font-size: 48px; }
+.avatar-emoji { font-size: 22px; font-weight: 700; color: #8B0000; }
 .avatar-name { font-size: 17px; font-weight: 600; color: #333; }
 .avatar-status { font-size: 13px; color: #999; margin-top: 4px; }
 .avatar-status.speaking { color: #8B0000; }
 .video-area {
+  position: relative;
   background: #1a1a1a;
   border-radius: 12px;
   height: 280px;
   display: flex; align-items: center; justify-content: center;
 }
-.video-hint { color: #666; font-size: 14px; }
+.video-hint {
+  position: absolute;
+  left: 0; right: 0; bottom: 12px;
+  z-index: 2;
+  margin: 0;
+  color: #d9d3ca;
+  font-size: 13px;
+  text-align: center;
+  pointer-events: none;
+}
 .interaction-section { display: flex; flex-direction: column; gap: 16px; }
 .panel-title { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 12px; }
 .topic-panel, .chat-panel {
@@ -238,4 +281,9 @@ const scrollToBottom = () => {
   font-size: 14px;
 }
 .send-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+@media (max-width: 760px) {
+  .guide-layout { grid-template-columns: 1fr; }
+  .video-area { height: 360px; }
+}
 </style>

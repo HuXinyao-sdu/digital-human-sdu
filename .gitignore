@@ -38,6 +38,13 @@ ai/weights/
 *.bin
 *.pt
 
+# === 本地测试数字人模型（受第三方许可限制，不上传仓库）===
+frontend/public/models/*.vrm
+frontend/public/models/*.glb
+
+# === 本地 TTS 缓存 ===
+data/generated-audio/
+
 # === 构建产物 ===
 build/
 *.egg-info/

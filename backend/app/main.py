@@ -5,6 +5,7 @@ from app.core.config import settings
 from app.api.health import router as health_router
 from app.api.chat import router as chat_router
 from app.api.content import router as content_router
+from app.api.tts import router as tts_router
 
 app = FastAPI(
     title="让历史动起来 - 山大校史数字人后端API",
@@ -25,6 +26,7 @@ app.add_middleware(
 app.include_router(health_router, prefix="/api")
 app.include_router(chat_router, prefix="/api")
 app.include_router(content_router, prefix="/api")
+app.include_router(tts_router, prefix="/api")
 
 
 @app.get("/")

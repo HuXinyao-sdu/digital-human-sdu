@@ -19,6 +19,9 @@ export const healthCheck = () => request.get('/health')
 // 问答接口
 export const chat = (data) => request.post('/chat', data)
 
+// 文字转语音
+export const textToSpeech = (data) => request.post('/tts', data)
+
 // 获取讲解脚本列表
 export const getScripts = () => request.get('/content/scripts')
 

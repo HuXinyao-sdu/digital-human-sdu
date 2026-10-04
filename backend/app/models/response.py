@@ -8,6 +8,11 @@ class ChatResponse(BaseModel):
     session_id: Optional[str] = None
 
 
+class TTSResponse(BaseModel):
+    audio_url: str
+    mime_type: str = "audio/mpeg"
+
+
 class HealthResponse(BaseModel):
     status: str
     version: str
