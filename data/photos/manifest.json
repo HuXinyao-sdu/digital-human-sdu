@@ -1,8 +1,8 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updated_at": "2026-10-09",
   "category": "校史老照片素材",
-  "note": "本清单由 ai/scripts/build_manifest.py 自动维护 items，人工整理的 desc/source 会保留不覆盖。",
+  "note": "items=网络下载黑白原图；textbook=课本拍摄原图；restored=高清修复黑白；colorized=网络原图彩色化；textbook_colorized=课本照片彩色化。由 build_manifest.py 自动维护，人工整理的 desc/source 保留不覆盖。",
   "items": [
     {
       "id": 1,
@@ -180,6 +180,254 @@
       "file": "colorized/qilu-theology-chemistry-color.jpg",
       "black_white": "1920s/qilu-theology-chemistry.jpg",
       "desc": "神学院与化学楼彩色化"
+    }
+  ],
+  "textbook": [
+    {
+      "id": 1,
+      "file": "textbook/微信图片_20260121123210_4_1499.jpg",
+      "desc": "课本原照：华医院工作的女职工（James Boyd Neal首任院长史料）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 2,
+      "file": "textbook/微信图片_20260121123212_7_1499.jpg",
+      "desc": "课本原照：1935年齐鲁大学编译馆同仁合影（图39）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 3,
+      "file": "textbook/微信图片_20260121123213_8_1499.jpg",
+      "desc": "课本原照：栾调甫先生（图167）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 4,
+      "file": "textbook/微信图片_20260121123213_9_1499.jpg",
+      "desc": "课本原照：顾颉刚先生（图168）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 5,
+      "file": "textbook/微信图片_20260121123214_10_1499.jpg",
+      "desc": "课本原照：1932年侯宝璋教授在齐鲁大学（图203）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 6,
+      "file": "textbook/微信图片_20260121123215_11_1499.jpg",
+      "desc": "课本原照：抗战期间侯宝璋与同事在成都华西协合大学门前合影（图205）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 7,
+      "file": "textbook/微信图片_20260121123216_12_1499.jpg",
+      "desc": "课本原照：1924年4月于道泉与访济泰戈尔一行合影（图289）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 8,
+      "file": "textbook/微信图片_20260121123216_13_1499.jpg",
+      "desc": "课本原照：1924年4月徐志摩/林徽因/梁思成与泰戈尔合影（图288）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 9,
+      "file": "textbook/微信图片_20260121123217_14_1499.jpg",
+      "desc": "课本原照：白求恩医生在救治伤员（图567）",
+      "source": "课本拍摄"
+    }
+  ],
+  "restored": [
+    {
+      "id": 1,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_1.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_1.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 2,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_2.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_2.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 3,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_3.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_3.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 4,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_4.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_4.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 5,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_5.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_5.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 6,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_6.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_6.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 7,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_7.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_7.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 8,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_8.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_8.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 9,
+      "file": "textbook/restored/微信图片_20260121123211_5_1499.jpg",
+      "desc": "高清修复版（微信图片_20260121123211_5_1499.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 10,
+      "file": "textbook/restored/微信图片_20260121123212_6_1499.jpg",
+      "desc": "高清修复版（微信图片_20260121123212_6_1499.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 11,
+      "file": "textbook/restored/微信图片_20260121123212_6_1499_2.jpg",
+      "desc": "高清修复版（微信图片_20260121123212_6_1499_2.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 12,
+      "file": "textbook/restored/微信图片_20260121123212_6_1499_3.jpg",
+      "desc": "高清修复版（微信图片_20260121123212_6_1499_3.jpg）",
+      "source": "课本拍摄+AI修复"
+    }
+  ],
+  "textbook_colorized": [
+    {
+      "file": "textbook/colorized/030dfe5528339fde23159c75c9841916.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/0c2bc118877a03398cae10802c23a308.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/0f46a9945209ec382dd2552a42b40ed6.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/10be0eaa5fd5f7606330d26126faa53a.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/1aa34e900b67c7bcd72296c3087d3572.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/1acca264bee195c2c151e95b129dc30d.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/1fbe9bedaa68a1e03572c456ea6e3342.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/27b8df648ba83b8934f57a81e77bedf7.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/2f5feaf766686d04e3901dc81821fa4f.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/33d7db748b9034261b57d6db1b453983.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/37a557c2b9f9c9bdb79e1d3b0eeefc7b.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/407ab220949bcb65291d795107da4387.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/50b2243317bed0771c854f5c0b00f464.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/50c2dc8ac6bd7fb39ca4695c37a87e5f.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/5bf244ac60c573346fe9212519f5a90c.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/83ec692ba2e8310cdc329d856da523e4.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/8b1259031d49414580f890cbf1a83782.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/8e88f4ee23892a979c7a824f14c2fae5.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/9701ed5953a1eaf66cfd6dc3d3e135fb.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/a96ba1292b9874cea0441998f2ff393d.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/be0ca4b15d95ebfd1dd945c3bae55fc1.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/c30f4554519d8e0cf42897c067f77f22.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/d5a74a598cbf4e8684beee5b41ae7564.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/e48ba553ad4368bcbe4777141853c7cf.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/e98a75c4a106089531ed3df30e3c5431.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/e9962b5d1392672a156ccc0678a1666f.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/f5ca79dcc9f3adeb6e76da561664006d.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/高清放大_006 (1).jpg",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/高清放大_007 (1).jpg",
+      "desc": ""
     }
   ]
 }

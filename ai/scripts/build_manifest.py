@@ -71,7 +71,7 @@ def build_photos_manifest() -> dict:
     base = cfg.PHOTOS_DIR
     old = _read_json(base / "manifest.json") or {}
     old_items = {}
-    for key in ("items", "originals", "colorized"):
+    for key in ("items", "originals", "colorized", "textbook", "restored", "textbook_colorized"):
         lst = old.get(key, [])
         if isinstance(lst, list):
             for i in lst:
@@ -97,10 +97,34 @@ def build_photos_manifest() -> dict:
         colorized.append({"file": rel,
                           "black_white": prev.get("black_white", ""),
                           "desc": prev.get("desc", "")})
-    return {"version": "0.1.0", "updated_at": date.today().isoformat(),
+
+    # 第一阶段成果：课本拍摄原版 / 高清修复版 / 彩色化成品
+    textbook, restored, textbook_colorized = [], [], []
+    for f in sorted((base / "textbook").glob("*.jpg")):
+        rel = f"textbook/{f.name}"
+        prev = old_items.get(rel, {}) or {}
+        textbook.append({"id": len(textbook) + 1, "file": rel,
+                         "desc": prev.get("desc", ""),
+                         "source": prev.get("source", "课本拍摄")})
+    for f in sorted((base / "textbook" / "restored").glob("*.jpg")):
+        rel = f"textbook/restored/{f.name}"
+        prev = old_items.get(rel, {}) or {}
+        restored.append({"id": len(restored) + 1, "file": rel,
+                         "desc": prev.get("desc", ""),
+                         "source": prev.get("source", "课本拍摄+AI修复")})
+    for f in sorted((base / "textbook" / "colorized").glob("*.*")):
+        if f.suffix.lower() not in (".jpg", ".jpeg", ".png"):
+            continue
+        rel = f"textbook/colorized/{f.name}"
+        prev = old_items.get(rel, {}) or {}
+        textbook_colorized.append({"file": rel,
+                                   "desc": prev.get("desc", "")})
+    return {"version": "0.2.0", "updated_at": date.today().isoformat(),
             "category": "校史老照片素材",
-            "note": "本清单由 ai/scripts/build_manifest.py 自动维护 items，人工整理的 desc/source 会保留不覆盖。",
-            "items": items, "colorized": colorized}
+            "note": "items=网络下载黑白原图；textbook=课本拍摄原图；restored=高清修复黑白；colorized=网络原图彩色化；textbook_colorized=课本照片彩色化。由 build_manifest.py 自动维护，人工整理的 desc/source 保留不覆盖。",
+            "items": items, "colorized": colorized,
+            "textbook": textbook, "restored": restored,
+            "textbook_colorized": textbook_colorized}
 
 
 def build_video_manifest() -> dict:
@@ -112,7 +136,12 @@ def build_video_manifest() -> dict:
         videos.append({"file": f"echomimic/{f.name}", "script": f.name[:-4]})
     for f in sorted(cfg.DIALOGUE_DIR.glob("*.mp4")):
         videos.append({"file": f"dialogue/{f.name}", "script": f.name[:-4]})
-    return {"version": "0.1.0", "updated_at": date.today().isoformat(),
+    # 第一阶段成果：动态照片视频 + 手工剪辑AI视频
+    for f in sorted((cfg.VIDEO_DIR / "dynamic").glob("*.mp4")):
+        videos.append({"file": f"dynamic/{f.name}", "kind": "老照片动态化"})
+    for f in sorted((cfg.VIDEO_DIR / "manual").glob("*.mp4")):
+        videos.append({"file": f"manual/{f.name}", "kind": "手工剪辑AI视频"})
+    return {"version": "0.2.0", "updated_at": date.today().isoformat(),
             "category": "AI生成音频与视频", "tts": tts, "videos": videos}
 
 
