@@ -1,8 +1,8 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updated_at": "2026-10-09",
   "category": "讲解脚本",
-  "scope": "趵突泉校区校史数字人讲解（6篇）",
+  "scope": "趵突泉校区校史数字人讲解（12篇 + 跨时空对话）",
   "items": [
     {
       "id": 1,
@@ -51,6 +51,62 @@
       "duration": "约90秒",
       "source": "figures/成仿吾.md",
       "file": "06-成仿吾与校歌.md"
+    },
+    {
+      "id": 7,
+      "title": "齐鲁大学：华北第一学府",
+      "era": "1917",
+      "duration": "约90秒",
+      "source": "events/1917-齐鲁大学成立.md",
+      "file": "07-齐鲁大学成立.md"
+    },
+    {
+      "id": 8,
+      "title": "杨振声：兼容并包的国立青岛大学",
+      "era": "1930-1932",
+      "duration": "约90秒",
+      "source": "figures/杨振声.md",
+      "file": "08-杨振声与国立青岛大学.md"
+    },
+    {
+      "id": 9,
+      "title": "赵太侔：两度执掌山大的戏剧家校长",
+      "era": "1932-1936, 1946-1949",
+      "duration": "约90秒",
+      "source": "figures/赵太侔.md",
+      "file": "09-赵太侔.md"
+    },
+    {
+      "id": 10,
+      "title": "柏根楼：校园里最老的一栋楼",
+      "era": "1917",
+      "duration": "约90秒",
+      "source": "buildings/柏根楼.md",
+      "file": "10-柏根楼.md"
+    },
+    {
+      "id": 11,
+      "title": "考文楼：纪念一个把科学带进中国的人",
+      "era": "1919",
+      "duration": "约90秒",
+      "source": "buildings/考文楼.md",
+      "file": "11-考文楼.md"
+    },
+    {
+      "id": 12,
+      "title": "一条文脉，三校汇流：今天的趵突泉校区",
+      "era": "2000",
+      "duration": "约120秒",
+      "source": ["events/1952-齐鲁大学医学院并入山东医学院.md", "events/2000-三校合并组建新山东大学.md"],
+      "file": "12-一条文脉三校汇流.md"
+    },
+    {
+      "id": 13,
+      "title": "跨时空对话：老舍 × 侯宝璋",
+      "era": "1934",
+      "duration": "约4分钟",
+      "source": ["figures/老舍.md", "figures/侯宝璋.md"],
+      "file": "dialogue-老舍-侯宝璋.md"
     }
   ]
 }
