@@ -1,0 +1,56 @@
+{
+  "version": "0.1.0",
+  "updated_at": "2026-10-09",
+  "category": "讲解脚本",
+  "scope": "趵突泉校区校史数字人讲解（6篇）",
+  "items": [
+    {
+      "id": 1,
+      "title": "登州文会馆：中国近代第一所大学",
+      "era": "1864",
+      "duration": "约90秒",
+      "source": "events/1864-登州文会馆创办.md",
+      "file": "01-登州文会馆.md"
+    },
+    {
+      "id": 2,
+      "title": "山东大学堂：开风气之先",
+      "era": "1901",
+      "duration": "约90秒",
+      "source": "events/1901-山东大学堂创办.md",
+      "file": "02-山东大学堂.md"
+    },
+    {
+      "id": 3,
+      "title": "老舍：把济南写进文章里的人",
+      "era": "1930-1937",
+      "duration": "约120秒",
+      "source": "figures/老舍.md",
+      "file": "03-老舍在济南.md"
+    },
+    {
+      "id": 4,
+      "title": "侯宝璋：从齐鲁大学走出的病理学先驱",
+      "era": "1920-1937",
+      "duration": "约120秒",
+      "source": "figures/侯宝璋.md",
+      "file": "04-侯宝璋.md"
+    },
+    {
+      "id": 5,
+      "title": "校友门：一座校门，四次改名",
+      "era": "1924",
+      "duration": "约90秒",
+      "source": "buildings/校友门.md",
+      "file": "05-校友门.md"
+    },
+    {
+      "id": 6,
+      "title": "成仿吾：迁校济南与山大校歌",
+      "era": "1958",
+      "duration": "约90秒",
+      "source": "figures/成仿吾.md",
+      "file": "06-成仿吾与校歌.md"
+    }
+  ]
+}
