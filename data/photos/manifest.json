@@ -66,6 +66,48 @@
       "file": "figures/houbaozhang-portrait.jpg",
       "desc": "侯宝璋肖像照",
       "source": "https://m.baike.com/wiki/%E4%BE%AF%E5%AE%9D%E7%92%8B/442183"
+    },
+    {
+      "id": 10,
+      "era": "baotuquan",
+      "file": "baotuquan/baotuquan-1917.jpg",
+      "desc": "趵突泉观澜亭与石碑（1917-1919，Sidney D. Gamble摄）",
+      "source": "http://www.ifuun.com/a2018082415811272/"
+    },
+    {
+      "id": 11,
+      "era": "baotuquan",
+      "file": "baotuquan/baotuquan-1930.jpg",
+      "desc": "趵突泉亭阁（1930）",
+      "source": "http://m.toutiao.com/group/6402929577060811009/"
+    },
+    {
+      "id": 12,
+      "era": "baotuquan",
+      "file": "baotuquan/baotuquan-1938.jpg",
+      "desc": "趵突泉泉水街巷（1938）",
+      "source": "http://m.toutiao.com/group/7683403196991848960/"
+    },
+    {
+      "id": 13,
+      "era": "qilu-hospital",
+      "file": "qilu-hospital/hospital-gate-1917.jpg",
+      "desc": "齐鲁大学医学院附设医院（齐鲁医院）北大门（1917）",
+      "source": "https://news.zhuyitai.com/sheji/detail-pics/545b58275b7a4f6885bae98d9167f880"
+    },
+    {
+      "id": 14,
+      "era": "qilu-hospital",
+      "file": "qilu-hospital/medical-staff-1920s.jpg",
+      "desc": "齐鲁大学医学院职员及工友合影（送别月海院长纪念摄影）",
+      "source": "http://mts.jk51.com/tushuo/1775538.html"
+    },
+    {
+      "id": 15,
+      "era": "qilu-hospital",
+      "file": "qilu-hospital/hospital-gate-1928.jpg",
+      "desc": "齐鲁医院大门（1928）",
+      "source": "https://m.uu11.com/tougao/860009.html"
     }
   ],
   "colorized": [
@@ -122,6 +164,36 @@
       "black_white": "figures/houbaozhang-portrait.jpg",
       "colorized": "colorized/houbaozhang-portrait-color.jpg",
       "desc": "侯宝璋教授肖像彩色化"
+    },
+    {
+      "id": "c10",
+      "black_white": "baotuquan/baotuquan-1917.jpg",
+      "colorized": "colorized/baotuquan-1917-color.jpg",
+      "desc": "趵突泉观澜亭彩色化（1917-1919）"
+    },
+    {
+      "id": "c11",
+      "black_white": "baotuquan/baotuquan-1938.jpg",
+      "colorized": "colorized/baotuquan-1938-color.jpg",
+      "desc": "趵突泉街景彩色化（1938）"
+    },
+    {
+      "id": "c12",
+      "black_white": "qilu-hospital/hospital-gate-1917.jpg",
+      "colorized": "colorized/hospital-gate-1917-color.jpg",
+      "desc": "齐鲁医院北大门彩色化（1917）"
+    },
+    {
+      "id": "c13",
+      "black_white": "qilu-hospital/medical-staff-1920s.jpg",
+      "colorized": "colorized/medical-staff-1920s-color.jpg",
+      "desc": "医学院职员合影彩色化（横幅文字被模型改写，需人工校正）"
+    },
+    {
+      "id": "c14",
+      "black_white": "qilu-hospital/hospital-gate-1928.jpg",
+      "colorized": "colorized/hospital-gate-1928-color.jpg",
+      "desc": "齐鲁医院大门彩色化（门柱小字被模型改写，需人工校正）"
     }
   ]
 }
