@@ -1,0 +1,134 @@
+{
+  "version": "0.1.0",
+  "updated_at": "2026-10-09",
+  "category": "校史资料",
+  "scope": "山东大学趵突泉校区（齐鲁大学）百年校史",
+  "items": [
+    {
+      "id": 1,
+      "type": "event",
+      "title": "登州文会馆创办",
+      "era": "1864",
+      "file": "events/1864-登州文会馆创办.md"
+    },
+    {
+      "id": 2,
+      "type": "event",
+      "title": "山东大学堂创办",
+      "era": "1901",
+      "file": "events/1901-山东大学堂创办.md"
+    },
+    {
+      "id": 3,
+      "type": "event",
+      "title": "齐鲁大学成立",
+      "era": "1917",
+      "file": "events/1917-齐鲁大学成立.md"
+    },
+    {
+      "id": 4,
+      "type": "event",
+      "title": "省立山东大学成立",
+      "era": "1926",
+      "file": "events/1926-省立山东大学成立.md"
+    },
+    {
+      "id": 5,
+      "type": "event",
+      "title": "国立青岛大学成立",
+      "era": "1930",
+      "file": "events/1930-国立青岛大学成立.md"
+    },
+    {
+      "id": 6,
+      "type": "event",
+      "title": "国立山东大学定名",
+      "era": "1932",
+      "file": "events/1932-国立山东大学定名.md"
+    },
+    {
+      "id": 7,
+      "type": "event",
+      "title": "齐鲁大学抗战西迁",
+      "era": "1937",
+      "file": "events/1937-齐鲁大学抗战西迁.md"
+    },
+    {
+      "id": 8,
+      "type": "event",
+      "title": "齐鲁大学撤销，医学院并入山东医学院",
+      "era": "1952",
+      "file": "events/1952-齐鲁大学医学院并入山东医学院.md"
+    },
+    {
+      "id": 9,
+      "type": "event",
+      "title": "山东大学迁回济南",
+      "era": "1958",
+      "file": "events/1958-山东大学迁回济南.md"
+    },
+    {
+      "id": 10,
+      "type": "event",
+      "title": "三校合并组建新山东大学",
+      "era": "2000",
+      "file": "events/2000-三校合并组建新山东大学.md"
+    },
+    {
+      "id": 11,
+      "type": "figure",
+      "title": "老舍",
+      "era": "1930-1937",
+      "file": "figures/老舍.md"
+    },
+    {
+      "id": 12,
+      "type": "figure",
+      "title": "侯宝璋",
+      "era": "1918-1937",
+      "file": "figures/侯宝璋.md"
+    },
+    {
+      "id": 13,
+      "type": "figure",
+      "title": "杨振声",
+      "era": "1930-1932",
+      "file": "figures/杨振声.md"
+    },
+    {
+      "id": 14,
+      "type": "figure",
+      "title": "赵太侔",
+      "era": "1932-1936, 1946-1949",
+      "file": "figures/赵太侔.md"
+    },
+    {
+      "id": 15,
+      "type": "figure",
+      "title": "成仿吾",
+      "era": "1958-1974",
+      "file": "figures/成仿吾.md"
+    },
+    {
+      "id": 16,
+      "type": "building",
+      "title": "柏根楼",
+      "era": "1917",
+      "file": "buildings/柏根楼.md"
+    },
+    {
+      "id": 17,
+      "type": "building",
+      "title": "考文楼",
+      "era": "1919",
+      "file": "buildings/考文楼.md"
+    },
+    {
+      "id": 18,
+      "type": "building",
+      "title": "校友门",
+      "era": "1924",
+      "file": "buildings/校友门.md"
+    }
+  ]
+}
