@@ -1,0 +1,60 @@
+{
+  "version": "0.1.0",
+  "updated_at": "2026-10-09",
+  "category": "AI生成音频与视频",
+  "tts": [
+    {
+      "file": "tts/01-登州文会馆.wav",
+      "script": "01-登州文会馆"
+    },
+    {
+      "file": "tts/02-山东大学堂.wav",
+      "script": "02-山东大学堂"
+    },
+    {
+      "file": "tts/03-老舍在济南.wav",
+      "script": "03-老舍在济南"
+    },
+    {
+      "file": "tts/04-侯宝璋.wav",
+      "script": "04-侯宝璋"
+    },
+    {
+      "file": "tts/05-校友门.wav",
+      "script": "05-校友门"
+    },
+    {
+      "file": "tts/06-成仿吾与校歌.wav",
+      "script": "06-成仿吾与校歌"
+    },
+    {
+      "file": "tts/07-齐鲁大学成立.wav",
+      "script": "07-齐鲁大学成立"
+    },
+    {
+      "file": "tts/08-杨振声与国立青岛大学.wav",
+      "script": "08-杨振声与国立青岛大学"
+    },
+    {
+      "file": "tts/09-赵太侔.wav",
+      "script": "09-赵太侔"
+    },
+    {
+      "file": "tts/10-柏根楼.wav",
+      "script": "10-柏根楼"
+    },
+    {
+      "file": "tts/11-考文楼.wav",
+      "script": "11-考文楼"
+    },
+    {
+      "file": "tts/12-一条文脉三校汇流.wav",
+      "script": "12-一条文脉三校汇流"
+    },
+    {
+      "file": "tts/dialogue-老舍-侯宝璋.wav",
+      "script": "dialogue-老舍-侯宝璋"
+    }
+  ],
+  "videos": []
+}

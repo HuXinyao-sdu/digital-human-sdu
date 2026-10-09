@@ -2,7 +2,6 @@
   "version": "0.1.0",
   "updated_at": "2026-10-09",
   "category": "校史资料",
-  "scope": "山东大学趵突泉校区（齐鲁大学）百年校史",
   "items": [
     {
       "id": 1,
@@ -56,7 +55,7 @@
     {
       "id": 8,
       "type": "event",
-      "title": "齐鲁大学撤销，医学院并入山东医学院",
+      "title": "齐鲁大学医学院并入山东医学院",
       "era": "1952",
       "file": "events/1952-齐鲁大学医学院并入山东医学院.md"
     },
@@ -77,58 +76,58 @@
     {
       "id": 11,
       "type": "figure",
-      "title": "老舍",
-      "era": "1930-1937",
-      "file": "figures/老舍.md"
+      "title": "侯宝璋",
+      "era": "",
+      "file": "figures/侯宝璋.md"
     },
     {
       "id": 12,
       "type": "figure",
-      "title": "侯宝璋",
-      "era": "1918-1937",
-      "file": "figures/侯宝璋.md"
+      "title": "成仿吾",
+      "era": "",
+      "file": "figures/成仿吾.md"
     },
     {
       "id": 13,
       "type": "figure",
       "title": "杨振声",
-      "era": "1930-1932",
+      "era": "",
       "file": "figures/杨振声.md"
     },
     {
       "id": 14,
       "type": "figure",
-      "title": "赵太侔",
-      "era": "1932-1936, 1946-1949",
-      "file": "figures/赵太侔.md"
+      "title": "老舍",
+      "era": "",
+      "file": "figures/老舍.md"
     },
     {
       "id": 15,
       "type": "figure",
-      "title": "成仿吾",
-      "era": "1958-1974",
-      "file": "figures/成仿吾.md"
+      "title": "赵太侔",
+      "era": "",
+      "file": "figures/赵太侔.md"
     },
     {
       "id": 16,
       "type": "building",
       "title": "柏根楼",
-      "era": "1917",
+      "era": "",
       "file": "buildings/柏根楼.md"
     },
     {
       "id": 17,
       "type": "building",
-      "title": "考文楼",
-      "era": "1919",
-      "file": "buildings/考文楼.md"
+      "title": "校友门",
+      "era": "",
+      "file": "buildings/校友门.md"
     },
     {
       "id": 18,
       "type": "building",
-      "title": "校友门",
-      "era": "1924",
-      "file": "buildings/校友门.md"
+      "title": "考文楼",
+      "era": "",
+      "file": "buildings/考文楼.md"
     }
   ]
 }

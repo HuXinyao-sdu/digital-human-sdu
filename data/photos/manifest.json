@@ -2,21 +2,21 @@
   "version": "0.1.0",
   "updated_at": "2026-10-09",
   "category": "校史老照片素材",
-  "note": "原始黑白照片下载自公开网络（山东大学官网/基础医学院/历史资料博文），仅供校内校史教育项目使用；彩色化版本输出至 colorized/ 目录",
+  "note": "本清单由 ai/scripts/build_manifest.py 自动维护 items，人工整理的 desc/source 会保留不覆盖。",
   "items": [
     {
       "id": 1,
       "era": "1910s",
-      "file": "1910s/qilu-main-building-1917.jpg",
-      "desc": "齐鲁大学大楼（1917-1919），今趵突泉校区早期建筑",
-      "source": "http://m.toutiao.com/group/6476005812698350094/"
+      "file": "1910s/qilu-building-1917.jpg",
+      "desc": "齐鲁大学大楼（1917-1919），青砖灰瓦中西合璧",
+      "source": "http://m.toutiao.com/group/6820194184150909452/"
     },
     {
       "id": 2,
       "era": "1910s",
-      "file": "1910s/qilu-building-1917.jpg",
-      "desc": "齐鲁大学大楼（1917-1919），青砖灰瓦中西合璧",
-      "source": "http://m.toutiao.com/group/6820194184150909452/"
+      "file": "1910s/qilu-main-building-1917.jpg",
+      "desc": "齐鲁大学大楼（1917-1919），今趵突泉校区早期建筑",
+      "source": "http://m.toutiao.com/group/6476005812698350094/"
     },
     {
       "id": 3,
@@ -49,9 +49,9 @@
     {
       "id": 7,
       "era": "figures",
-      "file": "figures/laoshe-portrait.jpg",
-      "desc": "老舍肖像（齐鲁大学教授时期）",
-      "source": "https://wantubizhi.com/pic/%E8%80%81%E8%88%8D%E8%82%96%E5%83%8F/"
+      "file": "figures/houbaozhang-portrait.jpg",
+      "desc": "侯宝璋肖像照",
+      "source": "https://m.baike.com/wiki/%E4%BE%AF%E5%AE%9D%E7%92%8B/442183"
     },
     {
       "id": 8,
@@ -63,9 +63,9 @@
     {
       "id": 9,
       "era": "figures",
-      "file": "figures/houbaozhang-portrait.jpg",
-      "desc": "侯宝璋肖像照",
-      "source": "https://m.baike.com/wiki/%E4%BE%AF%E5%AE%9D%E7%92%8B/442183"
+      "file": "figures/laoshe-portrait.jpg",
+      "desc": "老舍肖像（齐鲁大学教授时期）",
+      "source": "https://wantubizhi.com/pic/%E8%80%81%E8%88%8D%E8%82%96%E5%83%8F/"
     },
     {
       "id": 10,
@@ -98,102 +98,88 @@
     {
       "id": 14,
       "era": "qilu-hospital",
-      "file": "qilu-hospital/medical-staff-1920s.jpg",
-      "desc": "齐鲁大学医学院职员及工友合影（送别月海院长纪念摄影）",
-      "source": "http://mts.jk51.com/tushuo/1775538.html"
+      "file": "qilu-hospital/hospital-gate-1928.jpg",
+      "desc": "齐鲁医院大门（1928）",
+      "source": "https://m.uu11.com/tougao/860009.html"
     },
     {
       "id": 15,
       "era": "qilu-hospital",
-      "file": "qilu-hospital/hospital-gate-1928.jpg",
-      "desc": "齐鲁医院大门（1928）",
-      "source": "https://m.uu11.com/tougao/860009.html"
+      "file": "qilu-hospital/medical-staff-1920s.jpg",
+      "desc": "齐鲁大学医学院职员及工友合影（送别月海院长纪念摄影）",
+      "source": "http://mts.jk51.com/tushuo/1775538.html"
     }
   ],
   "colorized": [
     {
-      "id": "c1",
-      "black_white": "1910s/qilu-main-building-1917.jpg",
-      "colorized": "colorized/qilu-building-1917-color.jpg",
-      "desc": "齐鲁大学大楼彩色化（1917-1919）"
-    },
-    {
-      "id": "c2",
-      "black_white": "1920s/qilu-gate.jpg",
-      "colorized": "colorized/qilu-gate-color.jpg",
-      "desc": "齐鲁大学校友门彩色化（1924，匾额文字已校正为齐鲁大学）"
-    },
-    {
-      "id": "c3",
-      "black_white": "1930s/qilu-campus-1937.jpg",
-      "colorized": "colorized/qilu-campus-1937-color.jpg",
-      "desc": "齐鲁大学校园彩色化（1937）"
-    },
-    {
-      "id": "c4",
-      "black_white": "1940s/qilu-campus-1940.jpg",
-      "colorized": "colorized/qilu-campus-1940-color.jpg",
-      "desc": "齐鲁大学校园彩色化（1940）"
-    },
-    {
-      "id": "c5",
-      "black_white": "1910s/qilu-building-1917.jpg",
-      "colorized": "colorized/qilu-building2-1917-color.jpg",
-      "desc": "齐鲁大学大楼彩色化第二版（1917-1919）"
-    },
-    {
-      "id": "c6",
-      "black_white": "1920s/qilu-theology-chemistry.jpg",
-      "colorized": "colorized/qilu-theology-chemistry-color.jpg",
-      "desc": "齐鲁大学神学院与化学楼彩色化（1920s明信片）"
-    },
-    {
-      "id": "c7",
-      "black_white": "figures/laoshe-portrait.jpg",
-      "colorized": "colorized/laoshe-portrait-color.jpg",
-      "desc": "老舍先生肖像彩色化"
-    },
-    {
-      "id": "c8",
-      "black_white": "figures/houbaozhang-work.jpg",
-      "colorized": "colorized/houbaozhang-work-color.jpg",
-      "desc": "侯宝璋教授工作照彩色化"
-    },
-    {
-      "id": "c9",
-      "black_white": "figures/houbaozhang-portrait.jpg",
-      "colorized": "colorized/houbaozhang-portrait-color.jpg",
-      "desc": "侯宝璋教授肖像彩色化"
-    },
-    {
-      "id": "c10",
+      "file": "colorized/baotuquan-1917-color.jpg",
       "black_white": "baotuquan/baotuquan-1917.jpg",
-      "colorized": "colorized/baotuquan-1917-color.jpg",
-      "desc": "趵突泉观澜亭彩色化（1917-1919）"
+      "desc": "趵突泉观澜亭与石碑1917彩色化"
     },
     {
-      "id": "c11",
+      "file": "colorized/baotuquan-1938-color.jpg",
       "black_white": "baotuquan/baotuquan-1938.jpg",
-      "colorized": "colorized/baotuquan-1938-color.jpg",
-      "desc": "趵突泉街景彩色化（1938）"
+      "desc": "趵突泉泉水街巷1938彩色化"
     },
     {
-      "id": "c12",
+      "file": "colorized/hospital-gate-1917-color.jpg",
       "black_white": "qilu-hospital/hospital-gate-1917.jpg",
-      "colorized": "colorized/hospital-gate-1917-color.jpg",
-      "desc": "齐鲁医院北大门彩色化（1917）"
+      "desc": "齐鲁医院北门1917彩色化"
     },
     {
-      "id": "c13",
-      "black_white": "qilu-hospital/medical-staff-1920s.jpg",
-      "colorized": "colorized/medical-staff-1920s-color.jpg",
-      "desc": "医学院职员合影彩色化（横幅文字被模型改写，需人工校正）"
-    },
-    {
-      "id": "c14",
+      "file": "colorized/hospital-gate-1928-color.jpg",
       "black_white": "qilu-hospital/hospital-gate-1928.jpg",
-      "colorized": "colorized/hospital-gate-1928-color.jpg",
-      "desc": "齐鲁医院大门彩色化（门柱小字被模型改写，需人工校正）"
+      "desc": "齐鲁医院大门1928彩色化（门柱小字需人工校正）"
+    },
+    {
+      "file": "colorized/houbaozhang-portrait-color.jpg",
+      "black_white": "figures/houbaozhang-portrait.jpg",
+      "desc": "侯宝璋肖像彩色化"
+    },
+    {
+      "file": "colorized/houbaozhang-work-color.jpg",
+      "black_white": "figures/houbaozhang-work.jpg",
+      "desc": "侯宝璋工作照彩色化"
+    },
+    {
+      "file": "colorized/laoshe-portrait-color.jpg",
+      "black_white": "figures/laoshe-portrait.jpg",
+      "desc": "老舍肖像彩色化"
+    },
+    {
+      "file": "colorized/medical-staff-1920s-color.jpg",
+      "black_white": "qilu-hospital/medical-staff-1920s.jpg",
+      "desc": "医学院合影彩色化（横幅文字需人工校正，原文：中國濟南齊魯大學醫學院職員及工友送別月海院長回國紀念攝影）"
+    },
+    {
+      "file": "colorized/qilu-building-1917-color.jpg",
+      "black_white": "1910s/qilu-building-1917.jpg",
+      "desc": "齐鲁大学大楼（1917-1919）写实彩色化"
+    },
+    {
+      "file": "colorized/qilu-building2-1917-color.jpg",
+      "black_white": "1910s/qilu-main-building-1917.jpg",
+      "desc": "齐鲁大学大楼二次重制彩色化"
+    },
+    {
+      "file": "colorized/qilu-campus-1937-color.jpg",
+      "black_white": "1930s/qilu-campus-1937.jpg",
+      "desc": "1937校园彩色化"
+    },
+    {
+      "file": "colorized/qilu-campus-1940-color.jpg",
+      "black_white": "1940s/qilu-campus-1940.jpg",
+      "desc": "1940校园彩色化"
+    },
+    {
+      "file": "colorized/qilu-gate-color.jpg",
+      "black_white": "1920s/qilu-gate.jpg",
+      "desc": "齐鲁大学校友门彩色化（匾额'齐鲁大学'已锁定）"
+    },
+    {
+      "file": "colorized/qilu-theology-chemistry-color.jpg",
+      "black_white": "1920s/qilu-theology-chemistry.jpg",
+      "desc": "神学院与化学楼彩色化"
     }
   ]
 }
