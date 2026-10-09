@@ -1,0 +1,127 @@
+{
+  "version": "0.1.0",
+  "updated_at": "2026-10-09",
+  "category": "校史老照片素材",
+  "note": "原始黑白照片下载自公开网络（山东大学官网/基础医学院/历史资料博文），仅供校内校史教育项目使用；彩色化版本输出至 colorized/ 目录",
+  "items": [
+    {
+      "id": 1,
+      "era": "1910s",
+      "file": "1910s/qilu-main-building-1917.jpg",
+      "desc": "齐鲁大学大楼（1917-1919），今趵突泉校区早期建筑",
+      "source": "http://m.toutiao.com/group/6476005812698350094/"
+    },
+    {
+      "id": 2,
+      "era": "1910s",
+      "file": "1910s/qilu-building-1917.jpg",
+      "desc": "齐鲁大学大楼（1917-1919），青砖灰瓦中西合璧",
+      "source": "http://m.toutiao.com/group/6820194184150909452/"
+    },
+    {
+      "id": 3,
+      "era": "1920s",
+      "file": "1920s/qilu-gate.jpg",
+      "desc": "齐鲁大学校友门（1924年建，牌楼匾额题'齐鲁大学'）",
+      "source": "http://blog.sina.com.cn/s/blog_988b155f0101itpg.html"
+    },
+    {
+      "id": 4,
+      "era": "1920s",
+      "file": "1920s/qilu-theology-chemistry.jpg",
+      "desc": "齐鲁大学神学院与化学楼全景明信片",
+      "source": "http://blog.sina.com.cn/s/blog_988b155f0101itpg.html"
+    },
+    {
+      "id": 5,
+      "era": "1930s",
+      "file": "1930s/qilu-campus-1937.jpg",
+      "desc": "民国二十六年（1937）济南齐鲁大学旧貌",
+      "source": "http://m.toutiao.com/group/6595787227949695491/"
+    },
+    {
+      "id": 6,
+      "era": "1940s",
+      "file": "1940s/qilu-campus-1940.jpg",
+      "desc": "民国廿九年（1940）齐鲁大学校园",
+      "source": "http://k.sina.cn/article_7057805075_p1a4ad8f1300100ibvb.html"
+    },
+    {
+      "id": 7,
+      "era": "figures",
+      "file": "figures/laoshe-portrait.jpg",
+      "desc": "老舍肖像（齐鲁大学教授时期）",
+      "source": "https://wantubizhi.com/pic/%E8%80%81%E8%88%8D%E8%82%96%E5%83%8F/"
+    },
+    {
+      "id": 8,
+      "era": "figures",
+      "file": "figures/houbaozhang-work.jpg",
+      "desc": "侯宝璋教授（任中国医科大学副校长时工作照，案前显微镜）",
+      "source": "https://www.bms.sdu.edu.cn/info/1136/5437.htm"
+    },
+    {
+      "id": 9,
+      "era": "figures",
+      "file": "figures/houbaozhang-portrait.jpg",
+      "desc": "侯宝璋肖像照",
+      "source": "https://m.baike.com/wiki/%E4%BE%AF%E5%AE%9D%E7%92%8B/442183"
+    }
+  ],
+  "colorized": [
+    {
+      "id": "c1",
+      "black_white": "1910s/qilu-main-building-1917.jpg",
+      "colorized": "colorized/qilu-building-1917-color.jpg",
+      "desc": "齐鲁大学大楼彩色化（1917-1919）"
+    },
+    {
+      "id": "c2",
+      "black_white": "1920s/qilu-gate.jpg",
+      "colorized": "colorized/qilu-gate-color.jpg",
+      "desc": "齐鲁大学校友门彩色化（1924，匾额文字已校正为齐鲁大学）"
+    },
+    {
+      "id": "c3",
+      "black_white": "1930s/qilu-campus-1937.jpg",
+      "colorized": "colorized/qilu-campus-1937-color.jpg",
+      "desc": "齐鲁大学校园彩色化（1937）"
+    },
+    {
+      "id": "c4",
+      "black_white": "1940s/qilu-campus-1940.jpg",
+      "colorized": "colorized/qilu-campus-1940-color.jpg",
+      "desc": "齐鲁大学校园彩色化（1940）"
+    },
+    {
+      "id": "c5",
+      "black_white": "1910s/qilu-building-1917.jpg",
+      "colorized": "colorized/qilu-building2-1917-color.jpg",
+      "desc": "齐鲁大学大楼彩色化第二版（1917-1919）"
+    },
+    {
+      "id": "c6",
+      "black_white": "1920s/qilu-theology-chemistry.jpg",
+      "colorized": "colorized/qilu-theology-chemistry-color.jpg",
+      "desc": "齐鲁大学神学院与化学楼彩色化（1920s明信片）"
+    },
+    {
+      "id": "c7",
+      "black_white": "figures/laoshe-portrait.jpg",
+      "colorized": "colorized/laoshe-portrait-color.jpg",
+      "desc": "老舍先生肖像彩色化"
+    },
+    {
+      "id": "c8",
+      "black_white": "figures/houbaozhang-work.jpg",
+      "colorized": "colorized/houbaozhang-work-color.jpg",
+      "desc": "侯宝璋教授工作照彩色化"
+    },
+    {
+      "id": "c9",
+      "black_white": "figures/houbaozhang-portrait.jpg",
+      "colorized": "colorized/houbaozhang-portrait-color.jpg",
+      "desc": "侯宝璋教授肖像彩色化"
+    }
+  ]
+}
