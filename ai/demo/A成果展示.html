@@ -23,6 +23,12 @@
   .card .ph img{width:100%;height:100%;object-fit:cover}
   .card .ph.portrait{aspect-ratio:2/3}
   .card .ph video{width:100%;height:100%;object-fit:contain;background:#000}
+  .cover-wrap{position:relative;width:100%;height:100%;cursor:pointer}
+  .cover-wrap .cover{width:100%;height:100%;object-fit:cover;display:block}
+  .cover-wrap .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.22);transition:background .2s}
+  .cover-wrap:hover .play{background:rgba(0,0,0,.45)}
+  .cover-wrap .play::before{content:"";width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+  .cover-wrap .play::after{content:"";margin-left:5px;border-style:solid;border-width:10px 0 10px 16px;border-color:transparent transparent transparent #1a1d24;position:absolute;left:50%;top:50%;transform:translate(-2px,-50%)}
   .card .meta{padding:10px 12px}
   .card .meta b{font-size:13px;display:block}
   .card .meta span{font-size:12px;color:var(--sub)}
@@ -145,12 +151,22 @@ const SCRIPTS = [
 ];
 const P = "../../data/photos/textbook";
 const V = "../../data/generated-videos";
+const C = "covers";
+function videoCard(file, kind, tagClass) {
+  const key = file.replace(/\.[^.]+$/, "");
+  return `<div class="card"><div class="ph"><div class="cover-wrap" onclick="playCover(this)"><img class="cover" loading="lazy" src="${C}/${kind}_${key}.jpg" alt="${file}"><div class="play"></div></div><video style="display:none" controls preload="none" src="${V}/${kind}/${encodeURI(file)}"></video></div><div class="meta"><span class="tag ${tagClass}">${kind === "dynamic" ? "动态化" : "手工AI视频"}</span><b>${file}</b></div></div>`;
+}
+function playCover(el) {
+  const wrap = el.parentElement;
+  const v = wrap.querySelector("video");
+  el.style.display = "none";
+  v.style.display = "block";
+  v.play().catch(()=>{});
+}
 document.getElementById("colorGallery").innerHTML = PHOTO_FILES.map(f =>
   `<div class="card"><div class="ph"><img loading="lazy" src="${P}/colorized/${encodeURI(f)}" alt="${f}"></div><div class="meta"><span class="tag color">彩色化</span><b>${f}</b></div></div>`).join("");
-document.getElementById("dynamicGrid").innerHTML = DYN.map(f =>
-  `<div class="card"><div class="ph"><video src="${V}/dynamic/${f}" controls muted preload="none"></video></div><div class="meta"><span class="tag video">动态化</span><b>${f}</b></div></div>`).join("");
-document.getElementById("manualGrid").innerHTML = MANUAL.map(f =>
-  `<div class="card"><div class="ph"><video src="${V}/manual/${encodeURI(f)}" controls preload="none"></video></div><div class="meta"><span class="tag video">手工AI视频</span><b>${f}</b></div></div>`).join("");
+document.getElementById("dynamicGrid").innerHTML = DYN.map(f => videoCard(f, "dynamic", "video")).join("");
+document.getElementById("manualGrid").innerHTML = MANUAL.map(f => videoCard(f, "manual", "video")).join("");
 document.getElementById("audioList").innerHTML = TTS.map(([n,t]) =>
   `<div class="audio-item"><b>${n}.wav</b><span style="color:var(--sub);font-size:12px;min-width:180px">${t}</span><audio controls preload="none" src="${V}/tts/${n}.wav"></audio></div>`).join("");
 document.getElementById("scriptList").innerHTML = SCRIPTS.map((s,i) => {
