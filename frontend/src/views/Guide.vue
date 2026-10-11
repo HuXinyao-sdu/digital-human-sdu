@@ -31,6 +31,7 @@
               :key="topic.id"
               class="topic-btn"
               :class="{ active: activeTopic === topic.id }"
+              :disabled="loading"
               @click="selectTopic(topic)"
             >
               <span class="topic-era">{{ topic.era }}</span>
@@ -52,7 +53,15 @@
             <div v-for="(msg, idx) in messages" :key="idx"
               :class="['message', msg.role === 'user' ? 'user-message' : 'bot-message']">
               <div class="message-avatar">{{ msg.role === 'user' ? '🧑' : '🎓' }}</div>
-              <div class="message-bubble">{{ msg.content }}</div>
+              <div class="message-bubble">
+                <div>{{ msg.content }}</div>
+                <details v-if="msg.role === 'bot' && msg.sources?.length" class="message-sources">
+                  <summary>资料依据（{{ msg.sources.length }}）</summary>
+                  <ul>
+                    <li v-for="source in msg.sources" :key="source">{{ source }}</li>
+                  </ul>
+                </details>
+              </div>
             </div>
             <div v-if="loading" class="message bot-message">
               <div class="message-avatar">🎓</div>
@@ -84,12 +93,12 @@ import { chat, textToSpeech } from '@/api'
 import AvatarViewer from '@/components/AvatarViewer.vue'
 
 const topics = [
-  { id: 1, era: '1901', name: '山东大学堂创办' },
-  { id: 2, era: '1920s', name: '齐鲁大学与医学院' },
-  { id: 3, era: '1930s', name: '老舍在山大任教' },
-  { id: 4, era: '1940s', name: '侯宝璋与医学教育' },
-  { id: 5, era: '1950s', name: '院系调整与新山大' },
-  { id: 6, era: '当代', name: '趵突泉校区今昔' }
+  { id: 1, era: '1901', name: '山东大学堂创办', question: '请介绍山东大学堂的创办背景和意义。' },
+  { id: 2, era: '1920s', name: '齐鲁大学与医学院', question: '请介绍齐鲁大学及其医学教育的发展。' },
+  { id: 3, era: '1930s', name: '老舍在山大任教', question: '请介绍老舍在山东大学任教的经历。' },
+  { id: 4, era: '1940s', name: '侯宝璋与医学教育', question: '请介绍侯宝璋与山东大学医学教育的关系。' },
+  { id: 5, era: '1950s', name: '院系调整与新山大', question: '请介绍1950年代院系调整对山东大学发展的影响。' },
+  { id: 6, era: '当代', name: '趵突泉校区今昔', question: '请介绍趵突泉校区的历史沿革和代表性建筑。' }
 ]
 
 const activeTopic = ref(null)
@@ -100,30 +109,35 @@ const loading = ref(false)
 const chatContainer = ref(null)
 const avatarReady = ref(false)
 const avatarViewer = ref(null)
+const chatSessionId = ref(null)
 let audioPlayer = null
 
 const selectTopic = (topic) => {
   activeTopic.value = topic.id
-  isSpeaking.value = true
-  // 模拟讲解（后续替换为实际视频播放/TTS）
-  setTimeout(() => { isSpeaking.value = false }, 3000)
+  submitQuestion(topic.question)
 }
 
 const sendMessage = async () => {
   if (!inputText.value.trim() || loading.value) return
   const text = inputText.value.trim()
-  messages.value.push({ role: 'user', content: text })
   inputText.value = ''
+  await submitQuestion(text)
+}
+
+const submitQuestion = async (text) => {
+  if (!text || loading.value) return
+  messages.value.push({ role: 'user', content: text })
   loading.value = true
   await scrollToBottom()
 
   try {
-    const res = await chat({ question: text })
+    const res = await chat({ question: text, session_id: chatSessionId.value || undefined })
+    chatSessionId.value = res.session_id || chatSessionId.value
     const answer = res.answer || '抱歉，我暂时无法回答这个问题。'
-    messages.value.push({ role: 'bot', content: answer })
+    messages.value.push({ role: 'bot', content: answer, sources: res.sources || [] })
     await speakAnswer(answer)
   } catch (e) {
-    messages.value.push({ role: 'bot', content: '（后端未连接，这是模拟回复）关于这个问题，我正在学习中，敬请期待！' })
+    messages.value.push({ role: 'bot', content: '暂时无法连接校史知识库。请确认后端服务已启动后重试。' })
   } finally {
     loading.value = false
     await scrollToBottom()
@@ -224,6 +238,7 @@ const scrollToBottom = () => {
   text-align: left;
 }
 .topic-btn:hover { background: #f0e8dc; }
+.topic-btn:disabled { cursor: not-allowed; opacity: 0.65; }
 .topic-btn.active { border-color: #8B0000; background: #fdf5f5; }
 .topic-era { font-size: 12px; color: #8B0000; font-weight: 600; }
 .topic-name { font-size: 14px; color: #333; margin-top: 2px; }
@@ -252,6 +267,12 @@ const scrollToBottom = () => {
   max-width: 80%;
 }
 .bot-message .message-bubble { background: #fff; color: #333; border-top-left-radius: 2px; }
+.message-sources { margin-top: 8px; color: #777; font-size: 12px; line-height: 1.5; }
+.message-sources summary { width: fit-content; cursor: pointer; color: #8B0000; font-weight: 600; list-style: none; }
+.message-sources summary::-webkit-details-marker { display: none; }
+.message-sources summary::before { content: '⌄'; display: inline-block; margin-right: 4px; transition: transform 0.2s; }
+.message-sources[open] summary::before { transform: rotate(180deg); }
+.message-sources ul { margin: 6px 0 0; padding: 8px 0 0 18px; border-top: 1px solid #eee; }
 .user-message { flex-direction: row-reverse; }
 .user-message .message-bubble { background: #8B0000; color: #fff; border-top-right-radius: 2px; }
 .typing { display: flex; gap: 4px; align-items: center; padding: 14px; }

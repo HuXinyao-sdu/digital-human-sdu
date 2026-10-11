@@ -1,0 +1,31 @@
+{
+  "documents": [
+    {
+      "id": "school-profile-user-provided",
+      "title": "山东大学校史与概况",
+      "path": "documents/校史.txt",
+      "source_label": "用户提供资料（待复核）"
+    },
+    {
+      "id": "cheeloo-medicine-user-provided",
+      "title": "齐鲁医学史",
+      "path": "documents/齐鲁医学史.txt",
+      "source_label": "用户提供资料（待复核）",
+      "keywords": ["齐鲁医学", "齐鲁医院", "华美医院", "华东白求恩医学院", "侯宝璋", "医学教育"]
+    },
+    {
+      "id": "baotuquan-buildings-user-provided",
+      "title": "山东大学趵突泉校区建筑与历史景观档案",
+      "path": "documents/山东大学趵突泉校区建筑与历史景观档案.txt",
+      "source_label": "用户提供资料（待复核）",
+      "keywords": ["趵突泉校区", "校友门", "柏尔根楼", "麦考密克楼", "狄考文楼", "四百号院", "康穆礼拜堂", "圣保罗楼", "中心花园"]
+    },
+    {
+      "id": "sdu-official-history-lineage",
+      "title": "山东大学官方历史沿革",
+      "path": "documents/山东大学官方历史沿革.md",
+      "source_label": "山东大学官网",
+      "source_url": "https://www.sdu.edu.cn/sdgk/lsyg.htm"
+    }
+  ]
+}
