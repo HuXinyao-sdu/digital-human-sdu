@@ -1,0 +1,5 @@
+# A任务流水线依赖（服务器上安装）
+# 本地跑 TTS 和清单重建： pip install -r requirements.txt
+edge-tts>=6.1.10
+
+# EchoMimic V2 部署依赖请按官方仓库 requirements 安装（torch/cuda 等）

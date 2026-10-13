@@ -1,0 +1,433 @@
+{
+  "version": "0.2.0",
+  "updated_at": "2026-10-09",
+  "category": "校史老照片素材",
+  "note": "items=网络下载黑白原图；textbook=课本拍摄原图；restored=高清修复黑白；colorized=网络原图彩色化；textbook_colorized=课本照片彩色化。由 build_manifest.py 自动维护，人工整理的 desc/source 保留不覆盖。",
+  "items": [
+    {
+      "id": 1,
+      "era": "1910s",
+      "file": "1910s/qilu-building-1917.jpg",
+      "desc": "齐鲁大学大楼（1917-1919），青砖灰瓦中西合璧",
+      "source": "http://m.toutiao.com/group/6820194184150909452/"
+    },
+    {
+      "id": 2,
+      "era": "1910s",
+      "file": "1910s/qilu-main-building-1917.jpg",
+      "desc": "齐鲁大学大楼（1917-1919），今趵突泉校区早期建筑",
+      "source": "http://m.toutiao.com/group/6476005812698350094/"
+    },
+    {
+      "id": 3,
+      "era": "1920s",
+      "file": "1920s/qilu-gate.jpg",
+      "desc": "齐鲁大学校友门（1924年建，牌楼匾额题'齐鲁大学'）",
+      "source": "http://blog.sina.com.cn/s/blog_988b155f0101itpg.html"
+    },
+    {
+      "id": 4,
+      "era": "1920s",
+      "file": "1920s/qilu-theology-chemistry.jpg",
+      "desc": "齐鲁大学神学院与化学楼全景明信片",
+      "source": "http://blog.sina.com.cn/s/blog_988b155f0101itpg.html"
+    },
+    {
+      "id": 5,
+      "era": "1930s",
+      "file": "1930s/qilu-campus-1937.jpg",
+      "desc": "民国二十六年（1937）济南齐鲁大学旧貌",
+      "source": "http://m.toutiao.com/group/6595787227949695491/"
+    },
+    {
+      "id": 6,
+      "era": "1940s",
+      "file": "1940s/qilu-campus-1940.jpg",
+      "desc": "民国廿九年（1940）齐鲁大学校园",
+      "source": "http://k.sina.cn/article_7057805075_p1a4ad8f1300100ibvb.html"
+    },
+    {
+      "id": 7,
+      "era": "figures",
+      "file": "figures/houbaozhang-portrait.jpg",
+      "desc": "侯宝璋肖像照",
+      "source": "https://m.baike.com/wiki/%E4%BE%AF%E5%AE%9D%E7%92%8B/442183"
+    },
+    {
+      "id": 8,
+      "era": "figures",
+      "file": "figures/houbaozhang-work.jpg",
+      "desc": "侯宝璋教授（任中国医科大学副校长时工作照，案前显微镜）",
+      "source": "https://www.bms.sdu.edu.cn/info/1136/5437.htm"
+    },
+    {
+      "id": 9,
+      "era": "figures",
+      "file": "figures/laoshe-portrait.jpg",
+      "desc": "老舍肖像（齐鲁大学教授时期）",
+      "source": "https://wantubizhi.com/pic/%E8%80%81%E8%88%8D%E8%82%96%E5%83%8F/"
+    },
+    {
+      "id": 10,
+      "era": "baotuquan",
+      "file": "baotuquan/baotuquan-1917.jpg",
+      "desc": "趵突泉观澜亭与石碑（1917-1919，Sidney D. Gamble摄）",
+      "source": "http://www.ifuun.com/a2018082415811272/"
+    },
+    {
+      "id": 11,
+      "era": "baotuquan",
+      "file": "baotuquan/baotuquan-1930.jpg",
+      "desc": "趵突泉亭阁（1930）",
+      "source": "http://m.toutiao.com/group/6402929577060811009/"
+    },
+    {
+      "id": 12,
+      "era": "baotuquan",
+      "file": "baotuquan/baotuquan-1938.jpg",
+      "desc": "趵突泉泉水街巷（1938）",
+      "source": "http://m.toutiao.com/group/7683403196991848960/"
+    },
+    {
+      "id": 13,
+      "era": "qilu-hospital",
+      "file": "qilu-hospital/hospital-gate-1917.jpg",
+      "desc": "齐鲁大学医学院附设医院（齐鲁医院）北大门（1917）",
+      "source": "https://news.zhuyitai.com/sheji/detail-pics/545b58275b7a4f6885bae98d9167f880"
+    },
+    {
+      "id": 14,
+      "era": "qilu-hospital",
+      "file": "qilu-hospital/hospital-gate-1928.jpg",
+      "desc": "齐鲁医院大门（1928）",
+      "source": "https://m.uu11.com/tougao/860009.html"
+    },
+    {
+      "id": 15,
+      "era": "qilu-hospital",
+      "file": "qilu-hospital/medical-staff-1920s.jpg",
+      "desc": "齐鲁大学医学院职员及工友合影（送别月海院长纪念摄影）",
+      "source": "http://mts.jk51.com/tushuo/1775538.html"
+    }
+  ],
+  "colorized": [
+    {
+      "file": "colorized/baotuquan-1917-color.jpg",
+      "black_white": "baotuquan/baotuquan-1917.jpg",
+      "desc": "趵突泉观澜亭与石碑1917彩色化"
+    },
+    {
+      "file": "colorized/baotuquan-1938-color.jpg",
+      "black_white": "baotuquan/baotuquan-1938.jpg",
+      "desc": "趵突泉泉水街巷1938彩色化"
+    },
+    {
+      "file": "colorized/hospital-gate-1917-color.jpg",
+      "black_white": "qilu-hospital/hospital-gate-1917.jpg",
+      "desc": "齐鲁医院北门1917彩色化"
+    },
+    {
+      "file": "colorized/hospital-gate-1928-color.jpg",
+      "black_white": "qilu-hospital/hospital-gate-1928.jpg",
+      "desc": "齐鲁医院大门1928彩色化（门柱小字需人工校正）"
+    },
+    {
+      "file": "colorized/houbaozhang-portrait-color.jpg",
+      "black_white": "figures/houbaozhang-portrait.jpg",
+      "desc": "侯宝璋肖像彩色化"
+    },
+    {
+      "file": "colorized/houbaozhang-work-color.jpg",
+      "black_white": "figures/houbaozhang-work.jpg",
+      "desc": "侯宝璋工作照彩色化"
+    },
+    {
+      "file": "colorized/laoshe-portrait-color.jpg",
+      "black_white": "figures/laoshe-portrait.jpg",
+      "desc": "老舍肖像彩色化"
+    },
+    {
+      "file": "colorized/medical-staff-1920s-color.jpg",
+      "black_white": "qilu-hospital/medical-staff-1920s.jpg",
+      "desc": "医学院合影彩色化（横幅文字需人工校正，原文：中國濟南齊魯大學醫學院職員及工友送別月海院長回國紀念攝影）"
+    },
+    {
+      "file": "colorized/qilu-building-1917-color.jpg",
+      "black_white": "1910s/qilu-building-1917.jpg",
+      "desc": "齐鲁大学大楼（1917-1919）写实彩色化"
+    },
+    {
+      "file": "colorized/qilu-building2-1917-color.jpg",
+      "black_white": "1910s/qilu-main-building-1917.jpg",
+      "desc": "齐鲁大学大楼二次重制彩色化"
+    },
+    {
+      "file": "colorized/qilu-campus-1937-color.jpg",
+      "black_white": "1930s/qilu-campus-1937.jpg",
+      "desc": "1937校园彩色化"
+    },
+    {
+      "file": "colorized/qilu-campus-1940-color.jpg",
+      "black_white": "1940s/qilu-campus-1940.jpg",
+      "desc": "1940校园彩色化"
+    },
+    {
+      "file": "colorized/qilu-gate-color.jpg",
+      "black_white": "1920s/qilu-gate.jpg",
+      "desc": "齐鲁大学校友门彩色化（匾额'齐鲁大学'已锁定）"
+    },
+    {
+      "file": "colorized/qilu-theology-chemistry-color.jpg",
+      "black_white": "1920s/qilu-theology-chemistry.jpg",
+      "desc": "神学院与化学楼彩色化"
+    }
+  ],
+  "textbook": [
+    {
+      "id": 1,
+      "file": "textbook/微信图片_20260121123210_4_1499.jpg",
+      "desc": "课本原照：华医院工作的女职工（James Boyd Neal首任院长史料）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 2,
+      "file": "textbook/微信图片_20260121123212_7_1499.jpg",
+      "desc": "课本原照：1935年齐鲁大学编译馆同仁合影（图39）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 3,
+      "file": "textbook/微信图片_20260121123213_8_1499.jpg",
+      "desc": "课本原照：栾调甫先生（图167）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 4,
+      "file": "textbook/微信图片_20260121123213_9_1499.jpg",
+      "desc": "课本原照：顾颉刚先生（图168）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 5,
+      "file": "textbook/微信图片_20260121123214_10_1499.jpg",
+      "desc": "课本原照：1932年侯宝璋教授在齐鲁大学（图203）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 6,
+      "file": "textbook/微信图片_20260121123215_11_1499.jpg",
+      "desc": "课本原照：抗战期间侯宝璋与同事在成都华西协合大学门前合影（图205）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 7,
+      "file": "textbook/微信图片_20260121123216_12_1499.jpg",
+      "desc": "课本原照：1924年4月于道泉与访济泰戈尔一行合影（图289）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 8,
+      "file": "textbook/微信图片_20260121123216_13_1499.jpg",
+      "desc": "课本原照：1924年4月徐志摩/林徽因/梁思成与泰戈尔合影（图288）",
+      "source": "课本拍摄"
+    },
+    {
+      "id": 9,
+      "file": "textbook/微信图片_20260121123217_14_1499.jpg",
+      "desc": "课本原照：白求恩医生在救治伤员（图567）",
+      "source": "课本拍摄"
+    }
+  ],
+  "restored": [
+    {
+      "id": 1,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_1.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_1.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 2,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_2.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_2.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 3,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_3.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_3.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 4,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_4.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_4.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 5,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_5.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_5.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 6,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_6.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_6.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 7,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_7.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_7.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 8,
+      "file": "textbook/restored/微信图片_20260121123210_4_1499_8.jpg",
+      "desc": "高清修复版（微信图片_20260121123210_4_1499_8.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 9,
+      "file": "textbook/restored/微信图片_20260121123211_5_1499.jpg",
+      "desc": "高清修复版（微信图片_20260121123211_5_1499.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 10,
+      "file": "textbook/restored/微信图片_20260121123212_6_1499.jpg",
+      "desc": "高清修复版（微信图片_20260121123212_6_1499.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 11,
+      "file": "textbook/restored/微信图片_20260121123212_6_1499_2.jpg",
+      "desc": "高清修复版（微信图片_20260121123212_6_1499_2.jpg）",
+      "source": "课本拍摄+AI修复"
+    },
+    {
+      "id": 12,
+      "file": "textbook/restored/微信图片_20260121123212_6_1499_3.jpg",
+      "desc": "高清修复版（微信图片_20260121123212_6_1499_3.jpg）",
+      "source": "课本拍摄+AI修复"
+    }
+  ],
+  "textbook_colorized": [
+    {
+      "file": "textbook/colorized/030dfe5528339fde23159c75c9841916.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/0c2bc118877a03398cae10802c23a308.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/0f46a9945209ec382dd2552a42b40ed6.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/10be0eaa5fd5f7606330d26126faa53a.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/1aa34e900b67c7bcd72296c3087d3572.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/1acca264bee195c2c151e95b129dc30d.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/1fbe9bedaa68a1e03572c456ea6e3342.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/27b8df648ba83b8934f57a81e77bedf7.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/2f5feaf766686d04e3901dc81821fa4f.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/33d7db748b9034261b57d6db1b453983.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/37a557c2b9f9c9bdb79e1d3b0eeefc7b.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/407ab220949bcb65291d795107da4387.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/50b2243317bed0771c854f5c0b00f464.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/50c2dc8ac6bd7fb39ca4695c37a87e5f.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/5bf244ac60c573346fe9212519f5a90c.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/83ec692ba2e8310cdc329d856da523e4.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/8b1259031d49414580f890cbf1a83782.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/8e88f4ee23892a979c7a824f14c2fae5.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/9701ed5953a1eaf66cfd6dc3d3e135fb.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/a96ba1292b9874cea0441998f2ff393d.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/be0ca4b15d95ebfd1dd945c3bae55fc1.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/c30f4554519d8e0cf42897c067f77f22.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/d5a74a598cbf4e8684beee5b41ae7564.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/e48ba553ad4368bcbe4777141853c7cf.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/e98a75c4a106089531ed3df30e3c5431.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/e9962b5d1392672a156ccc0678a1666f.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/f5ca79dcc9f3adeb6e76da561664006d.png",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/高清放大_006 (1).jpg",
+      "desc": ""
+    },
+    {
+      "file": "textbook/colorized/高清放大_007 (1).jpg",
+      "desc": ""
+    }
+  ]
+}
