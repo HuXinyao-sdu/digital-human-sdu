@@ -45,6 +45,9 @@ frontend/public/models/*.glb
 # === 本地 TTS 缓存 ===
 data/generated-audio/
 data/history/.rag-semantic-index.json
+data/rag-sessions.sqlite3
+data/rag-sessions.sqlite3-shm
+data/rag-sessions.sqlite3-wal
 
 # === 构建产物 ===
 build/

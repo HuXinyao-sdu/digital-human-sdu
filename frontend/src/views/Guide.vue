@@ -11,8 +11,9 @@
           </div>
           <p class="avatar-name">小山 · 校史讲解员</p>
           <p class="avatar-status" :class="{ speaking: isSpeaking }">
-            {{ isSpeaking ? '正在讲解...' : '待命中' }}
+            {{ speechTotal ? `正在讲解（${speechSegment}/${speechTotal}）` : '待命中' }}
           </p>
+          <button v-if="speechTotal" class="stop-speaking-btn" @click="stopSpeaking">停止讲解</button>
         </div>
         <div class="video-area">
           <AvatarViewer ref="avatarViewer" @loaded="avatarReady = true" @error="avatarReady = false" />
@@ -42,7 +43,10 @@
 
         <!-- 问答区 -->
         <div class="chat-panel">
-          <h3 class="panel-title">互动问答</h3>
+          <div class="chat-panel-header">
+            <h3 class="panel-title">互动问答</h3>
+            <button class="new-chat-btn" :disabled="loading" @click="startNewConversation">新建对话</button>
+          </div>
           <div class="chat-messages" ref="chatContainer">
             <div class="message bot-message">
               <div class="message-avatar">🎓</div>
@@ -88,7 +92,7 @@
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue'
+import { onBeforeUnmount, ref, nextTick } from 'vue'
 import { chat, textToSpeech } from '@/api'
 import AvatarViewer from '@/components/AvatarViewer.vue'
 
@@ -109,12 +113,36 @@ const loading = ref(false)
 const chatContainer = ref(null)
 const avatarReady = ref(false)
 const avatarViewer = ref(null)
-const chatSessionId = ref(null)
+const CHAT_SESSION_STORAGE_KEY = 'sdu-digital-human-chat-session'
+const chatSessionId = ref(window.localStorage.getItem(CHAT_SESSION_STORAGE_KEY) || null)
+const speechSegment = ref(0)
+const speechTotal = ref(0)
 let audioPlayer = null
+let activePlaybackResolver = null
+let speechRunId = 0
+
+const MAX_SPEECH_CHARS = 220
 
 const selectTopic = (topic) => {
   activeTopic.value = topic.id
   submitQuestion(topic.question)
+}
+
+const saveChatSessionId = (sessionId) => {
+  chatSessionId.value = sessionId || null
+  if (sessionId) {
+    window.localStorage.setItem(CHAT_SESSION_STORAGE_KEY, sessionId)
+  } else {
+    window.localStorage.removeItem(CHAT_SESSION_STORAGE_KEY)
+  }
+}
+
+const startNewConversation = async () => {
+  stopSpeaking()
+  saveChatSessionId(null)
+  activeTopic.value = null
+  messages.value = []
+  await scrollToBottom()
 }
 
 const sendMessage = async () => {
@@ -126,16 +154,19 @@ const sendMessage = async () => {
 
 const submitQuestion = async (text) => {
   if (!text || loading.value) return
+  // 新问题优先，避免旧回答继续播报造成混淆。
+  stopSpeaking()
   messages.value.push({ role: 'user', content: text })
   loading.value = true
   await scrollToBottom()
 
   try {
     const res = await chat({ question: text, session_id: chatSessionId.value || undefined })
-    chatSessionId.value = res.session_id || chatSessionId.value
+    saveChatSessionId(res.session_id || chatSessionId.value)
     const answer = res.answer || '抱歉，我暂时无法回答这个问题。'
     messages.value.push({ role: 'bot', content: answer, sources: res.sources || [] })
-    await speakAnswer(answer)
+    // 语音播放不阻塞下一轮提问；用户可随时停止或发送新问题。
+    void speakAnswer(answer)
   } catch (e) {
     messages.value.push({ role: 'bot', content: '暂时无法连接校史知识库。请确认后端服务已启动后重试。' })
   } finally {
@@ -144,31 +175,110 @@ const submitQuestion = async (text) => {
   }
 }
 
+const splitForSpeech = (text) => {
+  const sentences = text.replace(/\s+/g, ' ').match(/[^。！？；…]+[。！？；…]?/g) || [text]
+  const segments = []
+  let current = ''
+
+  const append = (piece) => {
+    if (!piece) return
+    if (current && current.length + piece.length > MAX_SPEECH_CHARS) {
+      segments.push(current)
+      current = ''
+    }
+    if (piece.length <= MAX_SPEECH_CHARS) {
+      current += piece
+      return
+    }
+    // 个别超长句优先按逗号断开，仍超长时才按字符截取。
+    const clauses = piece.split(/(?<=[，、：])/)
+    if (clauses.length > 1) {
+      clauses.forEach(append)
+      return
+    }
+    while (piece.length > MAX_SPEECH_CHARS) {
+      if (current) segments.push(current)
+      segments.push(piece.slice(0, MAX_SPEECH_CHARS))
+      current = ''
+      piece = piece.slice(MAX_SPEECH_CHARS)
+    }
+    current += piece
+  }
+
+  sentences.forEach(append)
+  if (current) segments.push(current)
+  return segments.filter(Boolean)
+}
+
+const stopSpeaking = () => {
+  speechRunId += 1
+  if (audioPlayer) {
+    audioPlayer.pause()
+    audioPlayer.currentTime = 0
+    audioPlayer.src = ''
+    audioPlayer = null
+  }
+  activePlaybackResolver?.('stopped')
+  activePlaybackResolver = null
+  avatarViewer.value?.stopLipSync()
+  isSpeaking.value = false
+  speechSegment.value = 0
+  speechTotal.value = 0
+}
+
+const playSpeechSegment = async (audioUrl, runId) => {
+  if (runId !== speechRunId) return 'stopped'
+
+  return new Promise((resolve, reject) => {
+    const player = new Audio(audioUrl)
+    audioPlayer = player
+    const finish = (result) => {
+      if (audioPlayer === player) audioPlayer = null
+      if (activePlaybackResolver === finish) activePlaybackResolver = null
+      avatarViewer.value?.stopLipSync()
+      resolve(result)
+    }
+    activePlaybackResolver = finish
+    player.addEventListener('ended', () => finish('ended'), { once: true })
+    player.addEventListener('error', () => reject(new Error('音频播放失败')), { once: true })
+
+    Promise.resolve(avatarViewer.value?.startLipSync(player))
+      .then(() => player.play())
+      .then(() => { isSpeaking.value = true })
+      .catch(reject)
+  })
+}
+
 const speakAnswer = async (text) => {
+  const segments = splitForSpeech(text)
+  if (!segments.length) return
+  const runId = ++speechRunId
+  speechTotal.value = segments.length
+  speechSegment.value = 0
+
   try {
-    const speech = await textToSpeech({ text })
-
-    audioPlayer?.pause()
-    avatarViewer.value?.stopLipSync()
-
-    audioPlayer = new Audio(speech.audio_url)
-    audioPlayer.addEventListener('play', () => { isSpeaking.value = true })
-    audioPlayer.addEventListener('ended', () => {
-      isSpeaking.value = false
-      avatarViewer.value?.stopLipSync()
-    })
-    audioPlayer.addEventListener('error', () => {
-      isSpeaking.value = false
-      avatarViewer.value?.stopLipSync()
-    })
-
-    await avatarViewer.value?.startLipSync(audioPlayer)
-    await audioPlayer.play()
+    for (let index = 0; index < segments.length; index += 1) {
+      if (runId !== speechRunId) return
+      speechSegment.value = index + 1
+      const speech = await textToSpeech({ text: segments[index] })
+      if (runId !== speechRunId) return
+      const result = await playSpeechSegment(speech.audio_url, runId)
+      if (result !== 'ended') return
+    }
   } catch (error) {
     // TTS 未配置或暂时不可用时，保留文字回答，不影响问答流程。
     console.info('TTS unavailable:', error.message)
+  } finally {
+    if (runId === speechRunId) {
+      isSpeaking.value = false
+      speechSegment.value = 0
+      speechTotal.value = 0
+      avatarViewer.value?.stopLipSync()
+    }
   }
 }
+
+onBeforeUnmount(stopSpeaking)
 
 const scrollToBottom = () => {
   nextTick(() => {
@@ -202,6 +312,8 @@ const scrollToBottom = () => {
 .avatar-name { font-size: 17px; font-weight: 600; color: #333; }
 .avatar-status { font-size: 13px; color: #999; margin-top: 4px; }
 .avatar-status.speaking { color: #8B0000; }
+.stop-speaking-btn { margin-top: 12px; padding: 7px 14px; border: 1px solid #8B0000; border-radius: 16px; background: #fff; color: #8B0000; font-size: 13px; }
+.stop-speaking-btn:hover { background: #fdf5f5; }
 .video-area {
   position: relative;
   background: #1a1a1a;
@@ -221,6 +333,11 @@ const scrollToBottom = () => {
 }
 .interaction-section { display: flex; flex-direction: column; gap: 16px; }
 .panel-title { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 12px; }
+.chat-panel-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.chat-panel-header .panel-title { margin-bottom: 12px; }
+.new-chat-btn { padding: 5px 10px; border: 1px solid #ddd; border-radius: 6px; background: #fff; color: #666; font-size: 12px; white-space: nowrap; }
+.new-chat-btn:hover:not(:disabled) { border-color: #8B0000; color: #8B0000; }
+.new-chat-btn:disabled { cursor: not-allowed; opacity: 0.6; }
 .topic-panel, .chat-panel {
   background: #fff;
   border-radius: 12px;

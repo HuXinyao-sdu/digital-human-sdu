@@ -14,6 +14,7 @@ from typing import Any
 import httpx
 
 from app.core.config import settings
+from app.services.reranker import rerank, rerank_is_configured
 from app.services.semantic_index import semantic_scores
 
 _STOP_WORDS = {"什么", "怎么", "为什么", "是否", "一下", "关于", "可以", "介绍", "请问", "山东", "大学"}
@@ -178,7 +179,7 @@ def lexical_scores(question: str, documents: tuple[dict[str, Any], ...]) -> dict
     return scores
 
 
-def _rerank(
+def _rank_candidates(
     question: str,
     documents: tuple[dict[str, Any], ...],
     lexical: dict[str, float],
@@ -208,6 +209,16 @@ def _rerank(
     return [document for _, document in ranked[:limit]]
 
 
+def _rerank(
+    question: str,
+    documents: tuple[dict[str, Any], ...],
+    lexical: dict[str, float],
+    semantic: dict[str, float],
+    limit: int,
+) -> list[dict[str, Any]]:
+    return _rank_candidates(question, documents, lexical, semantic, limit)
+
+
 def retrieve(question: str, limit: int = 3) -> list[dict[str, Any]]:
     """仅关键词的同步检索，供离线检查和嵌入服务不可用时使用。"""
     documents = load_documents()
@@ -219,7 +230,15 @@ async def retrieve_hybrid(question: str, limit: int = 3) -> list[dict[str, Any]]
     documents = load_documents()
     lexical = lexical_scores(question, documents)
     semantic = await semantic_scores(question, documents)
-    return _rerank(question, documents, lexical, semantic, limit)
+    candidate_limit = max(limit, settings.RAG_RERANK_CANDIDATES) if rerank_is_configured() else limit
+    candidates = _rank_candidates(question, documents, lexical, semantic, candidate_limit)
+    if not rerank_is_configured():
+        return candidates[:limit]
+    try:
+        return await rerank(question, candidates, limit)
+    except (httpx.HTTPError, KeyError, TypeError, ValueError):
+        # 重排序服务故障时保留已有的混合召回结果，问答不中断。
+        return candidates[:limit]
 
 
 def citations(documents: list[dict[str, Any]]) -> list[str]:

@@ -55,7 +55,13 @@ async def _embed(texts: list[str]) -> list[list[float]]:
             headers=headers,
             json=payload,
         )
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except httpx.HTTPStatusError as error:
+            # 服务端通常会说明模型、输入条数或权限哪里不符合要求；不含请求头，因此不会泄露密钥。
+            detail = response.text[:1000].strip()
+            suffix = f" 服务端响应：{detail}" if detail else ""
+            raise RuntimeError(f"嵌入服务请求失败（HTTP {response.status_code}）。{suffix}") from error
     items = sorted(response.json()["data"], key=lambda item: item["index"])
     vectors = [item["embedding"] for item in items]
     if len(vectors) != len(texts) or not all(isinstance(vector, list) and vector for vector in vectors):
@@ -67,7 +73,7 @@ async def rebuild_semantic_index(documents: tuple[dict[str, Any], ...] | list[di
     """批量构建索引；只保存向量和内容哈希，不保存 API 密钥。"""
     texts = [document_text(document) for document in documents]
     vectors: list[list[float]] = []
-    batch_size = 32
+    batch_size = max(1, settings.RAG_EMBEDDING_BATCH_SIZE)
     for start in range(0, len(texts), batch_size):
         vectors.extend(await _embed(texts[start : start + batch_size]))
 

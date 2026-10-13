@@ -30,11 +30,22 @@ class Settings(BaseSettings):
     RAG_EMBEDDING_BASE_URL: str = ""
     RAG_EMBEDDING_MODEL: str = ""
     RAG_EMBEDDING_TIMEOUT: int = 30
+    # 不同服务对单次输入条数有不同限制；千问 qwen3.7-text-embedding-flash 为 20。
+    RAG_EMBEDDING_BATCH_SIZE: int = 20
     RAG_INDEX_PATH: str = ""
 
-    # 短期多轮会话：仅保存在内存，服务重启后清空。
+    # 可选的二次重排序：先召回候选资料，再由 Rerank 模型按问题相关性精排。
+    RAG_USE_RERANK: bool = False
+    RAG_RERANK_API_KEY: str = ""
+    RAG_RERANK_BASE_URL: str = ""
+    RAG_RERANK_MODEL: str = "qwen3-rerank"
+    RAG_RERANK_CANDIDATES: int = 12
+    RAG_RERANK_TIMEOUT: int = 30
+
+    # 短期多轮会话：默认存入本地 SQLite，服务重启后仍可保留至 TTL 到期。
     RAG_SESSION_MAX_TURNS: int = 5
     RAG_SESSION_TTL_SECONDS: int = 3600
+    RAG_SESSION_DB_PATH: str = ""
 
     # MiniMax TTS（密钥只保存在 backend/.env，不能提交到仓库）
     MINIMAX_API_KEY: str = ""

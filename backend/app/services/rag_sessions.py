@@ -1,47 +1,89 @@
-"""无数据库场景下的短期问答上下文。服务重启后自动清空。"""
+"""基于 SQLite 的短期问答上下文，服务重启后仍可保留会话。"""
 
 from __future__ import annotations
 
+import sqlite3
 import time
-from collections import deque
-from dataclasses import dataclass, field
+from contextlib import closing
+from pathlib import Path
 
 from app.core.config import settings
 
 
-@dataclass
-class Turn:
-    question: str
-    answer: str
+def _database_path() -> Path:
+    if settings.RAG_SESSION_DB_PATH:
+        return Path(settings.RAG_SESSION_DB_PATH)
+    return Path(__file__).resolve().parents[3] / "data" / "rag-sessions.sqlite3"
 
 
-@dataclass
-class Session:
-    updated_at: float = field(default_factory=time.time)
-    turns: deque[Turn] = field(default_factory=lambda: deque(maxlen=settings.RAG_SESSION_MAX_TURNS))
+def _connection() -> sqlite3.Connection:
+    path = _database_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    connection = sqlite3.connect(path, timeout=5)
+    connection.execute(
+        """
+        CREATE TABLE IF NOT EXISTS rag_turns (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          session_id TEXT NOT NULL,
+          question TEXT NOT NULL,
+          answer TEXT NOT NULL,
+          created_at REAL NOT NULL
+        )
+        """
+    )
+    connection.execute(
+        "CREATE INDEX IF NOT EXISTS idx_rag_turns_session_time ON rag_turns(session_id, created_at)"
+    )
+    return connection
 
 
-_sessions: dict[str, Session] = {}
-
-
-def _cleanup() -> None:
+def _cleanup(connection: sqlite3.Connection) -> None:
     cutoff = time.time() - settings.RAG_SESSION_TTL_SECONDS
-    for session_id in [key for key, value in _sessions.items() if value.updated_at < cutoff]:
-        _sessions.pop(session_id, None)
+    connection.execute("DELETE FROM rag_turns WHERE created_at < ?", (cutoff,))
 
 
 def contextualize(question: str, session_id: str | None) -> str:
-    """将近几轮问题补入检索式，使“后来呢”“它在哪里”等追问可被召回。"""
-    _cleanup()
-    session = _sessions.get(session_id or "")
-    if not session or not session.turns:
+    """将近两轮问题补入检索式，使“后来呢”“它在哪里”等追问可被召回。"""
+    if not session_id:
         return question
-    previous_questions = "；".join(turn.question for turn in list(session.turns)[-2:])
+
+    with closing(_connection()) as connection:
+        with connection:
+            _cleanup(connection)
+            rows = connection.execute(
+                """
+                SELECT question FROM rag_turns
+                WHERE session_id = ?
+                ORDER BY id DESC
+                LIMIT 2
+                """,
+                (session_id,),
+            ).fetchall()
+
+    if not rows:
+        return question
+    previous_questions = "；".join(row[0] for row in reversed(rows))
     return f"当前问题：{question}\n上下文问题：{previous_questions}"
 
 
 def record_turn(session_id: str, question: str, answer: str) -> None:
-    _cleanup()
-    session = _sessions.setdefault(session_id, Session())
-    session.turns.append(Turn(question=question, answer=answer))
-    session.updated_at = time.time()
+    """保存本轮问答，并仅保留每个会话最近指定轮数。"""
+    with closing(_connection()) as connection:
+        with connection:
+            _cleanup(connection)
+            connection.execute(
+                "INSERT INTO rag_turns(session_id, question, answer, created_at) VALUES (?, ?, ?, ?)",
+                (session_id, question, answer, time.time()),
+            )
+            connection.execute(
+                """
+                DELETE FROM rag_turns
+                WHERE session_id = ? AND id NOT IN (
+                  SELECT id FROM rag_turns
+                  WHERE session_id = ?
+                  ORDER BY id DESC
+                  LIMIT ?
+                )
+                """,
+                (session_id, session_id, settings.RAG_SESSION_MAX_TURNS),
+            )

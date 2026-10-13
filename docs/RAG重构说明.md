@@ -54,11 +54,24 @@ RAG_USE_LLM=true
    RAG_EMBEDDING_API_KEY=你的嵌入服务密钥
    RAG_EMBEDDING_BASE_URL=https://嵌入服务地址/v1
    RAG_EMBEDDING_MODEL=嵌入模型名称
+   RAG_EMBEDDING_BATCH_SIZE=20
    ```
 
 2. 在项目根目录运行 `python scripts/rebuild_rag_index.py`。生成的向量索引不会提交到 Git。
 3. 运行时先进行关键词与向量双路召回，再按关键词覆盖度、标题匹配和语义相似度重排序。
-4. 前端会保存后端返回的 `session_id`。同一页面中的追问会把最近两轮问题加入检索式；会话默认仅保存在内存 1 小时，服务重启后清空。
+4. 前端会保存后端返回的 `session_id`。同一页面中的追问会把最近两轮问题加入检索式；会话默认保存到本地 SQLite 1 小时，后端重启后仍可恢复。`data/rag-sessions.sqlite3` 为本地运行数据，不提交 Git；部署时可通过 `RAG_SESSION_DB_PATH` 指定持久化目录。
+
+如需进一步提高候选资料的排序精度，可启用千问的 `qwen3-rerank`：
+
+```dotenv
+RAG_USE_RERANK=true
+RAG_RERANK_API_KEY=你的千问API_Key
+RAG_RERANK_BASE_URL=https://maas.qianwenaiapi.com/compatible-api/v1
+RAG_RERANK_MODEL=qwen3-rerank
+RAG_RERANK_CANDIDATES=12
+```
+
+它会对关键词与向量检索召回的前 12 条候选资料进行二次排序，只返回最相关的 3 条。服务不可用时系统自动使用原有混合检索结果。
 
 ## 检索质量回归测试
 
