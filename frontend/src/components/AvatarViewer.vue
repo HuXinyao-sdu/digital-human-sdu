@@ -19,6 +19,7 @@ const container = ref(null)
 const status = ref('loading')
 const errorMessage = ref('')
 
+let disposed = false
 let renderer
 let scene
 let camera
@@ -86,7 +87,7 @@ const setNaturalPose = () => {
 }
 
 const updateIdleMotion = () => {
-  if (!vrm) return
+  if (!vrm || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
   const elapsed = clock.elapsedTime - idleStartTime
   const breath = Math.sin(elapsed * 1.7)
@@ -168,37 +169,29 @@ const resize = () => {
   renderer.setSize(width, height, false)
 }
 
-const disposeObject = (object) => {
-  object.traverse((child) => {
-    if (!child.isMesh) return
-    child.geometry?.dispose()
-    const materials = Array.isArray(child.material) ? child.material : [child.material]
-    materials.filter(Boolean).forEach((material) => material.dispose())
-  })
-}
-
 onMounted(() => {
   scene = new THREE.Scene()
-  scene.background = new THREE.Color('#241d20')
+  scene.background = null
 
   camera = new THREE.PerspectiveCamera(28, 1, 0.1, 100)
-  camera.position.set(0, 1.62, 2.05)
-  camera.lookAt(0, 1.48, 0)
+  camera.position.set(0, 1.42, 1.85)
+  camera.lookAt(0, 1.32, 0)
 
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false })
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   renderer.outputColorSpace = THREE.SRGBColorSpace
-  renderer.shadowMap.enabled = true
+  renderer.toneMapping = THREE.ACESFilmicToneMapping
+  renderer.toneMappingExposure = 0.85
   container.value.appendChild(renderer.domElement)
 
-  scene.add(new THREE.HemisphereLight(0xfff5e5, 0x28232b, 2.4))
+  scene.add(new THREE.HemisphereLight(0xfff5e5, 0x28232b, 1.4))
 
-  const keyLight = new THREE.DirectionalLight(0xffe8d2, 2.6)
+  const keyLight = new THREE.DirectionalLight(0xffe8d2, 1.5)
   keyLight.position.set(1.5, 3, 2)
   keyLight.castShadow = true
   scene.add(keyLight)
 
-  const fillLight = new THREE.DirectionalLight(0xc9dcff, 1.2)
+  const fillLight = new THREE.DirectionalLight(0xc9dcff, 0.6)
   fillLight.position.set(-2, 1.5, 1)
   scene.add(fillLight)
 
@@ -216,6 +209,7 @@ onMounted(() => {
   loader.load(
     '/models/avatar.vrm',
     (gltf) => {
+      if (disposed) { VRMUtils.deepDispose(gltf.scene); return }
       vrm = gltf.userData.vrm
       if (!vrm) {
         const error = new Error('文件中没有可用的 VRM 数据。')
@@ -241,6 +235,7 @@ onMounted(() => {
     },
     undefined,
     (error) => {
+      if (disposed) return
       console.error('VRM model load error:', error)
       errorMessage.value = '数字人模型加载失败，请确认本地 avatar.vrm 文件存在。'
       status.value = 'error'
@@ -252,12 +247,13 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  disposed = true
   cancelAnimationFrame(frameId)
   resizeObserver?.disconnect()
   stopLipSync()
   audioSource?.disconnect()
   audioContext?.close()
-  if (vrm?.scene) disposeObject(vrm.scene)
+  if (vrm?.scene) VRMUtils.deepDispose(vrm.scene)
   renderer?.dispose()
   renderer?.domElement.remove()
 })
@@ -288,10 +284,10 @@ defineExpose({ startLipSync, stopLipSync })
   place-items: center;
   margin: 0;
   padding: 24px;
-  color: #ded8d0;
+  color: #692620;
   font-size: 14px;
   text-align: center;
 }
 
-.viewer-error { color: #ffb4a8; }
+.viewer-error { color: #692620; }
 </style>

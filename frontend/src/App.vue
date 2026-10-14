@@ -1,70 +1,22 @@
 <template>
-  <div class="app-container">
-    <header class="app-header">
-      <div class="logo" @click="$router.push('/')">
-        <span class="logo-icon">📜</span>
-        <span class="logo-text">让历史动起来</span>
-      </div>
-      <nav class="nav-menu">
-        <router-link to="/" class="nav-item">首页</router-link>
-        <router-link to="/guide" class="nav-item">数字人讲解</router-link>
-        <router-link to="/timeline" class="nav-item">校史时间轴</router-link>
-        <router-link to="/gallery" class="nav-item">老照片图库</router-link>
-      </nav>
-    </header>
-    <main class="app-main">
-      <router-view />
-    </main>
-    <footer class="app-footer">
-      <p>山东大学人工智能学院 · "让历史动起来"项目组</p>
-    </footer>
-  </div>
+  <a class="skip-link" href="#main" @click.prevent="skipToMain">跳至正文</a>
+  <header class="site-header">
+    <RouterLink class="brand" to="/" aria-label="百廿回响 首页"><img class="university-emblem" src="/design-assets/sdu-emblem.png" width="40" height="40" alt="山东大学校徽"><span class="brand-name">山东大学<small>SHANDONG UNIVERSITY</small></span><span class="brand-divider"></span><span class="exhibit-name">百廿回响<small>校史数字展馆</small></span></RouterLink>
+    <nav id="navigation" aria-label="主导航" :class="{ open: menuOpen }"><RouterLink v-for="[url, name] in links" :key="url" :to="url" :class="{ active: route.path === url }" :aria-current="route.path === url ? 'page' : undefined">{{ name }}</RouterLink></nav>
+    <RouterLink class="header-entry" to="/guide">开启探索 <Icon name="diagonal" /></RouterLink>
+    <button class="menu-button icon-button" @click="menuOpen = !menuOpen" :aria-expanded="menuOpen" aria-controls="navigation" :aria-label="menuOpen ? '收起导航' : '展开导航'"><Icon :name="menuOpen ? 'close' : 'menu'" /></button>
+  </header>
+  <RouterView />
+  <footer class="site-footer"><div class="footer-top"><RouterLink class="footer-name" to="/">百廿回响<span>在这里，与山大的昨天相遇。</span></RouterLink><p class="motto">学无止境<span>·</span>气有浩然</p><button class="back-top" @click="toTop">回到顶部 ↑</button></div><div class="footer-bottom"><span>山东大学校史数字展馆 · 让历史动起来</span><span>影像来自项目校史资料 · AI 修复效果不等同于历史原貌</span><span>EST. 1901</span></div></footer>
 </template>
-
 <script setup>
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import Icon from '@/components/ExhibitIcon.vue'
+const route = useRoute()
+const menuOpen = ref(false)
+const links = [['/', '首页'], ['/guide', '数字人讲解'], ['/gallery', '光影展廊'], ['/dialogue', '跨时空对话'], ['/quiz', '校史拾趣']]
+watch(() => route.fullPath, () => { menuOpen.value = false })
+function toTop() { window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }) }
+function skipToMain() { const main = document.querySelector('main'); main?.focus(); main?.scrollIntoView() }
 </script>
-
-<style scoped>
-.app-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.app-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-  height: 64px;
-  background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  color: #fff;
-}
-.logo-icon { font-size: 24px; }
-.logo-text { font-size: 18px; font-weight: 600; letter-spacing: 1px; }
-.nav-menu { display: flex; gap: 8px; }
-.nav-item {
-  color: rgba(255,255,255,0.85);
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 15px;
-  transition: all 0.2s;
-}
-.nav-item:hover { background: rgba(255,255,255,0.15); color: #fff; }
-.nav-item.router-link-active { background: rgba(255,255,255,0.2); color: #fff; font-weight: 500; }
-.app-main { flex: 1; padding: 32px; max-width: 1200px; margin: 0 auto; width: 100%; }
-.app-footer {
-  text-align: center;
-  padding: 20px;
-  background: #2c2c2c;
-  color: #999;
-  font-size: 13px;
-}
-</style>

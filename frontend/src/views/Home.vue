@@ -1,98 +1,18 @@
 <template>
-  <div class="home">
-    <section class="hero">
-      <h1 class="hero-title">让历史动起来</h1>
-      <p class="hero-subtitle">山东大学趵突泉校史 · 交互式数字人讲解平台</p>
-      <div class="hero-actions">
-        <button class="btn btn-primary" @click="$router.push('/guide')">
-          开始聆听校史
-        </button>
-        <button class="btn btn-outline" @click="$router.push('/timeline')">
-          浏览时间轴
-        </button>
-      </div>
+  <main id="main" tabindex="-1">
+    <section class="hero page-width">
+      <div class="hero-copy enter"><div class="eyebrow"><span class="red-dot"></span>A JOURNEY THROUGH SDU HISTORY</div><h1>让历史<br>再次<span class="red-ink">回响</span><span class="title-stop">。</span></h1><p class="hero-description">一座校园，一部跨越百年的书。<br>循着光影与回声，走近山大的故事。</p><div class="hero-actions"><RouterLink class="button primary" to="/guide">与数字人一起探索 <Icon name="arrow" /></RouterLink><RouterLink class="text-link" to="/gallery">翻开时光相册 <Icon name="diagonal" /></RouterLink></div><div class="hero-footnote"><span class="hairline"></span><span>为天下储人才，为国家图富强</span></div></div>
+      <figure class="hero-visual enter"><div class="hero-photo"><img src="/design-assets/gate.webp" alt="齐鲁大学时期的校友门彩色化影像" fetchpriority="high"><span class="photo-corner top-left"></span><span class="photo-corner bottom-right"></span><span class="hero-archive">ARCHIVE<br><strong>No. 001</strong></span><span class="photo-seal">山大<br>记忆</span><div class="hero-photo-title"><span>时光有迹，文脉有声。</span><small>TRACES OF TIME · VOICES OF HISTORY</small></div></div><figcaption><span><Icon name="pin" /> 齐鲁大学时期的校友门</span><span>校史影像 · 彩色化资料</span></figcaption><span class="vertical-note">一砖一瓦，皆有回响。</span></figure>
     </section>
-
-    <section class="features">
-      <div class="feature-card" v-for="item in features" :key="item.title">
-        <div class="feature-icon">{{ item.icon }}</div>
-        <h3 class="feature-title">{{ item.title }}</h3>
-        <p class="feature-desc">{{ item.desc }}</p>
-      </div>
-    </section>
-
-    <section class="about">
-      <h2 class="section-title">项目简介</h2>
-      <p class="about-text">
-        本项目聚焦山东大学趵突泉校区百年校史，通过AI数字人、老照片彩色修复、
-        动态图片处理与RAG智能问答技术，打造可交互、可对话的校史文化体验平台。
-        让尘封的历史照片重新焕发光彩，让校史人物的故事被更多人听见。
-      </p>
-    </section>
-  </div>
+    <section class="history-ribbon page-width enter" aria-label="校史时间轴"><div class="history-ribbon-label"><span>沿着时间，走近山大</span><small>THE CHAPTERS OF TIME</small></div><div class="era-list"><button v-for="(era, i) in eras" :key="era.year" class="era-button" :class="{ active: selected === i }" :aria-pressed="selected === i" @click="selected = i"><strong>{{ era.year }}</strong><span>{{ era.name }}</span></button></div></section>
+    <section class="history-note page-width" aria-live="polite"><span class="red-dot"></span><p>{{ eras[selected].description }}</p><RouterLink :to="{ path: '/guide', query: { question: '请介绍' + eras[selected].year + '年前后山东大学的历史。' } }">听这一段历史 <Icon name="arrow" /></RouterLink></section>
+    <section class="chapter-section page-width"><div class="section-heading"><div><div class="eyebrow">EXPLORE THE ARCHIVE</div><h2>以四种方式，走进百年山大。</h2></div><span class="section-side">从一段故事开始<br>让记忆，与你发生联系</span></div><div class="chapter-grid"><RouterLink class="chapter-card photo-chapter" to="/gallery"><img src="/design-assets/garden.webp" alt="绿荫中的葛罗神学院楼" loading="lazy"><div class="chapter-photo-shade"></div><span class="chapter-no">01 / THE GALLERY</span><div class="chapter-text"><span>一帧光影，一段旧时光</span><h3>在老照片里，<br>与昨日重逢。</h3><span class="circle-arrow"><Icon name="diagonal" /></span></div></RouterLink><div class="chapter-small-grid"><RouterLink class="chapter-card paper-chapter" to="/guide"><span class="chapter-no">02 / THE GUIDE</span><Icon name="book" class="chapter-icon" /><h3>让校史<br>讲给你听。</h3><p>跟随数字人小山，听见历史的回声。</p><span class="chapter-bottom">数字人讲解 <Icon name="arrow" /></span></RouterLink><RouterLink class="chapter-card red-chapter" to="/dialogue"><span class="chapter-no">03 / THE DIALOGUE</span><span class="quotation">“</span><h3>跨越时空，<br>赴一场思想之约。</h3><p>当两位学人相遇，故事有了新的视角。</p><span class="chapter-bottom">跨时空对话 <Icon name="arrow" /></span></RouterLink><RouterLink class="chapter-card quiz-chapter" to="/quiz"><div><span class="chapter-no">04 / THE CHALLENGE</span><h3>拾起校史的点滴，检验你的山大记忆。</h3></div><span class="circle-arrow"><Icon name="feather" /></span></RouterLink></div></div></section>
+    <section class="manifesto"><div class="page-width manifesto-inner"><span class="manifesto-index">SDU<br>1901 —</span><div><div class="eyebrow">THE SPIRIT THAT ENDURES</div><h2>岁月流转，<br>求知的光从未熄灭。</h2><p>把厚重的校史，讲给今天的你。<br>在每一次回望中，找到走向未来的力量。</p></div><div class="manifesto-art"><img src="/design-assets/tower-thumb.webp" alt="共合楼塔楼" loading="lazy"><span>崇实<br>求新</span></div></div></section>
+  </main>
 </template>
-
 <script setup>
-const features = [
-  { icon: '🎙️', title: 'AI数字人讲解', desc: '虚拟讲解员实时讲述校史故事，支持互动问答' },
-  { icon: '🖼️', title: '老照片彩色修复', desc: '历史黑白照片智能上色，还原真实历史场景' },
-  { icon: '📅', title: '校史时间轴', desc: '按年代梳理山大发展脉络，点击探索历史细节' },
-  { icon: '💬', title: 'RAG智能问答', desc: '基于校史知识库，随时提问获得准确解答' }
-]
+import { ref } from 'vue'
+import Icon from '@/components/ExhibitIcon.vue'
+import { eras } from '@/data/exhibit'
+const selected = ref(0)
 </script>
-
-<style scoped>
-.home { max-width: 1000px; margin: 0 auto; }
-.hero {
-  text-align: center;
-  padding: 60px 20px 50px;
-  background: linear-gradient(180deg, #f5f0e8 0%, #faf8f5 100%);
-  border-radius: 16px;
-  margin-bottom: 40px;
-}
-.hero-title {
-  font-size: 42px;
-  font-weight: 700;
-  color: #8B0000;
-  margin-bottom: 16px;
-  letter-spacing: 4px;
-}
-.hero-subtitle {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 32px;
-}
-.hero-actions { display: flex; gap: 16px; justify-content: center; }
-.btn {
-  padding: 12px 32px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-.btn-primary { background: #8B0000; color: #fff; }
-.btn-primary:hover { background: #6d0000; transform: translateY(-1px); }
-.btn-outline { background: transparent; color: #8B0000; border: 1.5px solid #8B0000; }
-.btn-outline:hover { background: rgba(139,0,0,0.06); }
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  margin-bottom: 40px;
-}
-.feature-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 28px 20px;
-  text-align: center;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  transition: transform 0.2s;
-}
-.feature-card:hover { transform: translateY(-4px); }
-.feature-icon { font-size: 36px; margin-bottom: 12px; }
-.feature-title { font-size: 17px; font-weight: 600; color: #333; margin-bottom: 8px; }
-.feature-desc { font-size: 14px; color: #777; line-height: 1.6; }
-.about { background: #fff; border-radius: 12px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-.section-title { font-size: 22px; color: #8B0000; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid #8B0000; }
-.about-text { font-size: 15px; color: #555; line-height: 1.9; }
-</style>
