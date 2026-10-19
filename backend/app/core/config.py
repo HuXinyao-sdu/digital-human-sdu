@@ -16,6 +16,15 @@ class Settings(BaseSettings):
     RAG_API_KEY: str = ""
     RAG_USE_EXTERNAL_API: bool = False
 
+    # 按需联网补证；与代理另一套 RAG 的开关独立。
+    RAG_WEB_ENABLED: bool = False
+    TAVILY_API_KEY: str = ""
+    RAG_WEB_TIMEOUT: int = 45
+    RAG_WEB_REQUEST_TIMEOUT: int = 15
+    RAG_WEB_GATE_TIMEOUT: int = 6
+    RAG_WEB_CACHE_SECONDS: int = 300
+    RAG_WEB_MAX_RESULTS: int = 5
+
     # 本地校史知识库 + DeepSeek（DeepSeek 留空时仍可进行本地可溯源检索）
     RAG_KNOWLEDGE_PATH: str = ""
     DEEPSEEK_API_KEY: str = ""

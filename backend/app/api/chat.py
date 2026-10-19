@@ -7,15 +7,20 @@ from app.models.request import ChatRequest
 from app.models.response import ChatResponse
 from app.services.local_rag import answer as local_rag_answer
 from app.services.rag_sessions import contextualize, record_turn
+from app.services.persona import conversational_reply
 
 router = APIRouter(prefix="/chat", tags=["问答交互"])
 
 @router.post("", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     session_id = request.session_id or str(uuid.uuid4())
+    identity = conversational_reply(request.question)
+    if identity:
+        record_turn(session_id, request.question, identity)
+        return ChatResponse(answer=identity, sources=[], session_id=session_id)
 
     # 如果配置了RAG API，调用实际RAG系统
-    if settings.RAG_USE_EXTERNAL_API and settings.RAG_API_URL:
+    if settings.RAG_USE_EXTERNAL_API and settings.RAG_API_URL and not settings.RAG_WEB_ENABLED:
         try:
             async with httpx.AsyncClient(timeout=30) as client:
                 resp = await client.post(
@@ -25,12 +30,15 @@ async def chat(request: ChatRequest):
                 )
                 resp.raise_for_status()
                 data = resp.json()
+                if not isinstance(data, dict) or not isinstance(data.get('answer'), str) or not data['answer'].strip():
+                    raise ValueError('Empty external answer')
+                record_turn(session_id, request.question, data['answer'])
                 return ChatResponse(
                     answer=data.get("answer", ""),
                     sources=data.get("sources", []),
                     session_id=session_id
                 )
-        except httpx.HTTPError:
+        except (httpx.HTTPError, ValueError, TypeError):
             # 外部服务异常时继续使用本地已审核知识库。
             pass
 

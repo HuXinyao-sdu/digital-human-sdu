@@ -17,7 +17,7 @@ request.interceptors.response.use(
 export const healthCheck = () => request.get('/health')
 
 // 问答接口
-export const chat = (data) => request.post('/chat', data)
+export const chat = (data) => request.post('/chat', data, { timeout: 120000 })
 
 // 文字转语音
 export const textToSpeech = (data) => request.post('/tts', data)
