@@ -17,7 +17,7 @@ request.interceptors.response.use(
 export const healthCheck = () => request.get('/health')
 
 // 问答接口
-export const chat = (data) => request.post('/chat', data)
+export const chat = (data) => request.post('/chat', data, { timeout: 120000 })
 
 // 文字转语音
 export const textToSpeech = (data) => request.post('/tts', data)
@@ -29,3 +29,9 @@ export const getScripts = () => request.get('/content/scripts')
 export const getGallery = () => request.get('/content/gallery')
 
 export default request
+
+// Resolve backend media paths when a separate API host is configured.
+export function mediaUrl(path) {
+  const base = new URL(import.meta.env.VITE_API_BASE_URL || '/api', window.location.origin)
+  return new URL(path, base.origin).href
+}

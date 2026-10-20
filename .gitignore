@@ -44,6 +44,13 @@ frontend/public/models/*.glb
 
 # === 本地 TTS 缓存 ===
 data/generated-audio/
+data/history/.rag-semantic-index.json
+data/rag-sessions.sqlite3
+data/rag-sessions.sqlite3-shm
+data/rag-sessions.sqlite3-wal
+
+# === 本地校史媒体原始资源（约 783MB，部署时单独同步或上传对象存储） ===
+data/photos/Photos/
 
 # === 构建产物 ===
 build/
@@ -67,3 +74,8 @@ depoly/nginx/ssl/
 tmp/
 temp/
 *.tmp
+
+# === 个人本地启动脚本 ===
+/start-frontend.ps1
+/start-backend.ps1
+/start-all.ps1

@@ -36,6 +36,8 @@ class PhotoItem(BaseModel):
     era: str
     location: str
     image_url: str
+    category: str = "彩色化"
+    media_type: str = "image"
 
 
 class GalleryResponse(BaseModel):

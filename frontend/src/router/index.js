@@ -24,16 +24,28 @@ const routes = [
     name: 'Gallery',
     component: () => import('@/views/Gallery.vue'),
     meta: { title: '老照片图库' }
+  },
+  {
+    path: '/dialogue', name: 'Dialogue',
+    component: () => import('@/views/Dialogue.vue'), meta: { title: '跨时空对话' }
+  },
+  {
+    path: '/quiz', name: 'Quiz',
+    component: () => import('@/views/Quiz.vue'), meta: { title: '校史拾趣' }
+  },
+  {
+    path: '/:pathMatch(.*)*', redirect: '/'
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior(to, from, saved) { return saved || { top: 0 } },
   routes
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title || ''} - 让历史动起来`
+  document.title = `${to.meta.title || '首页'} · 百廿回响`
   next()
 })
 

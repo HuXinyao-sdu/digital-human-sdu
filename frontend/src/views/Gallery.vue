@@ -1,109 +1,25 @@
 <template>
-  <div class="gallery-page">
-    <h2 class="page-title">老照片彩色修复图库</h2>
-    <p class="page-desc">历史黑白照片经AI彩色修复，还原真实历史场景</p>
-
-    <div class="filter-bar">
-      <button v-for="era in eras" :key="era"
-        class="filter-btn" :class="{ active: activeEra === era }"
-        @click="activeEra = era">
-        {{ era }}
-      </button>
-    </div>
-
-    <div class="gallery-grid">
-      <div v-for="photo in filteredPhotos" :key="photo.id" class="photo-card">
-        <div class="photo-wrapper">
-          <div class="photo-placeholder" :style="{ background: photo.color }">
-            <span class="photo-icon">🖼️</span>
-          </div>
-          <div class="photo-overlay">
-            <span class="overlay-text">点击查看</span>
-          </div>
-        </div>
-        <div class="photo-info">
-          <h3 class="photo-title">{{ photo.title }}</h3>
-          <p class="photo-era">{{ photo.era }} · {{ photo.location }}</p>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="filteredPhotos.length === 0" class="empty">
-      <p>暂无该年代照片</p>
-    </div>
-  </div>
+<main id="main" tabindex="-1" class="page-width inner-page"><PageHeading number="02" english="THE PHOTOGRAPHIC ARCHIVE" title="光影有迹，岁月有声。">从一张照片，走进一段校园往事。<br>在旧日的光影里，遇见鲜活的山大。</PageHeading><div class="gallery-toolbar"><div class="filter-tabs" aria-label="影像分类"><button v-for="c in categories" :key="c" :class="{active: category === c}" :aria-pressed="category === c" @click="category = c">{{ c }}</button></div><div class="gallery-tools"><button class="collection-button" :class="{active: savedOnly}" :aria-pressed="savedOnly" @click="savedOnly = !savedOnly"><Icon name="heart" /> 我的收藏</button><label class="search-field"><Icon name="search"/><input v-model="search" aria-label="搜索影像" placeholder="寻找一段记忆…"></label></div></div><div class="gallery-count"><span>{{ filtered.length }} 段记忆</span><span>馆藏 / {{ photos.length }} 件</span></div>
+<div v-if="loading" class="empty-state" role="status">正在载入校史影像…</div><div v-else-if="error" class="empty-state" role="alert"><p>{{ error }}</p><button class="button outline" @click="load">重新加载</button></div><div v-else class="gallery-grid"><article v-for="(p, i) in filtered" :key="p.image_url" class="gallery-card"><button class="photo-open" :aria-label="'查看 ' + p.title" @click="open(p)"><img v-if="p.media_type === 'image'" :src="mediaUrl(p.image_url)" :alt="p.title" loading="lazy" decoding="async"><VideoCover v-else :src="mediaUrl(p.image_url)" :title="p.title" /><span class="image-overlay">查看影像 <Icon name="diagonal"/></span><span class="image-tag">{{ p.category }}</span></button><div class="gallery-card-info"><div><span class="photo-index">{{ String(i + 1).padStart(2, '0') }} <i></i>{{ p.category }}</span><h3><button @click="open(p)">{{ p.title }}</button></h3><small>{{ p.era }} · {{ p.location }}</small></div><button class="save-button" :class="{saved: saved.includes(p.image_url)}" :aria-label="(saved.includes(p.image_url) ? '取消收藏 ' : '收藏 ') + p.title" :aria-pressed="saved.includes(p.image_url)" @click="toggleSave(p)"><Icon name="heart"/></button></div></article><div v-if="!filtered.length" class="empty-state"><h3>这里还没有这段记忆。</h3><button class="button outline" @click="category = '全部'; search = ''; savedOnly = false">查看全部影像</button></div></div><p class="gallery-disclaimer"><Icon name="image"/>影像选自项目提供的校史资料；AI 修复、色彩与动态效果不等同于历史原貌。</p>
+<dialog ref="dialog" class="photo-dialog" aria-label="影像预览" @close="selected = null" @click="backdropClose"><template v-if="selected"><div class="dialog-top"><span class="eyebrow">THE ARCHIVE / {{ selected.category }}</span><button class="icon-button" aria-label="关闭影像" @click="dialog.close()"><Icon name="close"/></button></div><div class="dialog-media"><img v-if="selected.media_type === 'image'" :src="mediaUrl(selected.image_url)" :alt="selected.title"><video v-else :src="mediaUrl(selected.image_url)" controls autoplay playsinline></video></div><div class="dialog-bottom"><div><span class="photo-index">{{ selected.era }}</span><h2>{{ selected.title }}</h2><p>{{ selected.category }} · {{ selected.media_type === 'video' ? '动态化演示，非历史现场录像' : '项目校史影像资料' }}</p></div><a class="text-link" :href="mediaUrl(selected.image_url)" target="_blank" rel="noopener">打开原文件 <Icon name="diagonal"/></a></div></template></dialog></main>
 </template>
-
 <script setup>
-import { ref, computed } from 'vue'
-
-const eras = ['全部', '1900s', '1920s', '1930s', '1950s', '1980s']
-const activeEra = ref('全部')
-
-const photos = ref([
-  { id: 1, title: '山东大学堂校门', era: '1900s', location: '济南泺源书院', color: 'linear-gradient(135deg,#d4c5a9,#a89880)' },
-  { id: 2, title: '齐鲁大学主楼', era: '1920s', location: '趵突泉校区', color: 'linear-gradient(135deg,#c9b896,#8b7355)' },
-  { id: 3, title: '老舍在山大任教', era: '1930s', location: '青岛校区', color: 'linear-gradient(135deg,#b8a88a,#6b5b4a)' },
-  { id: 4, title: '侯宝璋在实验室', era: '1930s', location: '齐鲁大学医学院', color: 'linear-gradient(135deg,#a8b5c9,#5a6b80)' },
-  { id: 5, title: '院系调整大会', era: '1950s', location: '趵突泉校区', color: 'linear-gradient(135deg,#c9a8a8,#806060)' },
-  { id: 6, title: '医学院教学楼', era: '1950s', location: '趵突泉校区', color: 'linear-gradient(135deg,#b8c9a8,#608060)' },
-  { id: 7, title: '山东医科大学校门', era: '1980s', location: '趵突泉校区', color: 'linear-gradient(135deg,#a8b8c9,#607080)' },
-  { id: 8, title: '校园全景俯瞰', era: '1980s', location: '趵突泉校区', color: 'linear-gradient(135deg,#c9c0a8,#807860)' }
-])
-
-const filteredPhotos = computed(() => {
-  if (activeEra.value === '全部') return photos.value
-  return photos.value.filter(p => p.era === activeEra.value)
-})
+import { ref, computed, onMounted, nextTick, onBeforeUnmount } from 'vue'
+import { getGallery, mediaUrl } from '@/api'
+import PageHeading from '@/components/PageHeading.vue'
+import VideoCover from '@/components/VideoCover.vue'
+import Icon from '@/components/ExhibitIcon.vue'
+import { readStorage, writeStorage } from '@/utils/storage'
+const photos = ref([]), loading = ref(false), error = ref(''), category = ref('全部'), search = ref(''), savedOnly = ref(false), selected = ref(null), dialog = ref(null)
+const stored = readStorage('sdu-gallery-favorites', [])
+const saved = ref(Array.isArray(stored) ? stored : [])
+const categories = computed(() => ['全部', ...new Set(photos.value.map(p => p.category))])
+const filtered = computed(() => photos.value.filter(p => (category.value === '全部' || p.category === category.value) && (!savedOnly.value || saved.value.includes(p.image_url)) && `${p.title}${p.era}${p.location}`.includes(search.value.trim())))
+let disposed = false
+async function load() { loading.value = true; error.value = ''; try { const res = await getGallery(); if (!disposed) photos.value = res.items || [] } catch { error.value = '图库暂时无法加载，请确认后端服务已启动。' } finally { loading.value = false } }
+async function open(p) { selected.value = p; await nextTick(); dialog.value.showModal() }
+function toggleSave(p) { saved.value = saved.value.includes(p.image_url) ? saved.value.filter(x => x !== p.image_url) : [...saved.value, p.image_url]; writeStorage('sdu-gallery-favorites', saved.value) }
+function backdropClose(e) { if (e.target !== dialog.value) return; const r = dialog.value.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.value.close() }
+onMounted(load)
+onBeforeUnmount(() => { disposed = true; dialog.value?.close() })
 </script>
-
-<style scoped>
-.gallery-page { max-width: 1100px; margin: 0 auto; }
-.page-title { font-size: 24px; color: #8B0000; margin-bottom: 8px; padding-left: 12px; border-left: 4px solid #8B0000; }
-.page-desc { color: #777; font-size: 14px; margin-bottom: 24px; padding-left: 16px; }
-.filter-bar { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
-.filter-btn {
-  padding: 8px 18px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  font-size: 14px;
-  color: #666;
-  transition: all 0.2s;
-}
-.filter-btn:hover { border-color: #8B0000; color: #8B0000; }
-.filter-btn.active { background: #8B0000; color: #fff; border-color: #8B0000; }
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
-}
-.photo-card {
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  transition: transform 0.2s;
-}
-.photo-card:hover { transform: translateY(-4px); }
-.photo-wrapper { position: relative; aspect-ratio: 4/3; overflow: hidden; }
-.photo-placeholder {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-}
-.photo-icon { font-size: 48px; opacity: 0.5; }
-.photo-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.photo-card:hover .photo-overlay { opacity: 1; }
-.overlay-text { color: #fff; font-size: 14px; }
-.photo-info { padding: 14px 16px; }
-.photo-title { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 4px; }
-.photo-era { font-size: 12px; color: #999; }
-.empty { text-align: center; padding: 60px; color: #999; }
-</style>

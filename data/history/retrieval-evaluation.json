@@ -1,0 +1,16 @@
+{
+  "description": "本地校史知识库的基础检索回归集。expected_id 可为完整 ID 或文档 ID 前缀。",
+  "cases": [
+    {"question": "山东大学堂何时创办？", "expected_id": "founding-1901"},
+    {"question": "山东大学堂是哪一年成立的？", "expected_id": "founding-1901"},
+    {"question": "教学三楼原来叫什么？", "expected_id": "baotuquan-buildings-user-provided-"},
+    {"question": "柏尔根楼现在是什么用途？", "expected_id": "baotuquan-buildings-user-provided-"},
+    {"question": "趵突泉校区的校友门建于哪一年？", "expected_id": "baotuquan-buildings-user-provided-"},
+    {"question": "华美医院与齐鲁医院有什么关系？", "expected_id": "cheeloo-medicine-user-provided-"},
+    {"question": "齐鲁医学的前身是什么？", "expected_id": "cheeloo-medicine-user-provided-"},
+    {"question": "老舍什么时候在齐鲁大学任教？", "expected_id": "cheeloo-medicine-user-provided-"},
+    {"question": "侯宝璋与齐鲁大学有什么关系？", "expected_id": "cheeloo-medicine-user-provided-"},
+    {"question": "山东大学何时入选首轮双一流？", "expected_id": "double-first-class-2017"},
+    {"question": "第二轮双一流有哪些山大学科？", "expected_id": "second-double-first-class-2022"}
+  ]
+}

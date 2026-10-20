@@ -1,5 +1,5 @@
 <template>
-  <div class="timeline-page">
+  <main id="main" tabindex="-1" class="timeline-page inner-page">
     <h2 class="page-title">山大校史时间轴</h2>
     <p class="page-desc">点击时间节点，探索山东大学趵突泉校区的百年发展历程</p>
 
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup>
